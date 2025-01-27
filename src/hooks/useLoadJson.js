@@ -20,14 +20,20 @@ function useLoadJson(inputUrls) {
       try {
         if (Array.isArray(inputUrls)) {
           // If inputUrls is an array, fetch all URLs concurrently
-          const responses = await Promise.all(inputUrls.map(url => fetch(url)));
-          const jsonData = await Promise.all(responses.map(res => {
-            if (!res.ok) {
-              throw new Error(`Error fetching ${res.url}: ${res.statusText}`);
-            }
-            return res.json();
-          }));
-          setData(jsonData);
+          const responses = await Promise.all(
+            inputUrls.map(async (url) => {
+              try {
+                const res = await fetch(url);
+                if (!res.ok) {
+                  throw new Error(`Error fetching ${res.url}: ${res.statusText}`);
+                }
+                return await res.json();
+              } catch (err) {
+                return { error: err.message };
+              }
+            })
+          );
+          setData(responses);
         } else {
           // If inputUrls is a single URL, fetch it
           const response = await fetch(inputUrls);
