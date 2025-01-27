@@ -21,9 +21,9 @@ function useLoadJson(inputUrls) {
         if (Array.isArray(inputUrls)) {
           // If inputUrls is an array, fetch all URLs concurrently
           const responses = await Promise.all(
-            inputUrls.map(async (url) => {
+            inputUrls.map(async (item) => {
               try {
-                const res = await fetch(url);
+                const res = await fetch(item.url);
                 if (!res.ok) {
                   throw new Error(`Error fetching ${res.url}: ${res.statusText}`);
                 }
