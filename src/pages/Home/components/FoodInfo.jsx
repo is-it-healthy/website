@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import useLoadJson from "../../../hooks/useLoadJson";
 
 export const colorOptions = [
   { value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true },
@@ -16,6 +17,10 @@ export const colorOptions = [
 ];
 
 const FoodInfo = () => {
+
+  const [selectedData, setSelectedData] = useState([]);
+  const { data: fetchedListData, fetchedListLoading, fetchedListError } = useLoadJson('https://raw.githubusercontent.com/is-it-healthy/data/refs/heads/v2/dist/ins-summary.json');
+
   const animatedComponents = makeAnimated();
 
   return (
@@ -25,7 +30,14 @@ const FoodInfo = () => {
         components={animatedComponents}
         defaultValue={[]}
         isMulti
-        options={colorOptions}
+        // bring from {code, name} to {value, label}
+        // TODO: change the data later to remove this
+        options={fetchedListData.map((item) => ({
+          value: item.code,
+          label: item.name,
+        }))}
+        onChange={setSelectedData}
+        value={selectedData}
       />
     </>
   );
