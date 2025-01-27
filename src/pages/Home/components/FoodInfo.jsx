@@ -39,7 +39,7 @@ const FoodInfo = () => {
           />
         </div>
         <div className="mt-10">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {fetchedAllData?.map((item) => (
               <div className="card card-compact bg-base-100 shadow-xl w-full" key={item.code}>
                 <div className="card-body">
