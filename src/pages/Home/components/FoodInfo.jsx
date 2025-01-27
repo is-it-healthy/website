@@ -46,13 +46,97 @@ const FoodInfo = () => {
                   <div className="">{item.more_info?.banned_in}</div>
 
                   {item.more_info?.side_effects && (
-                    <div className="collapse bg-base-200">
-                      <input type="checkbox" />
+                    <div className="collapse collapse-arrow border-base-300 bg-base-200 border">
+                      <input type="checkbox" defaultChecked />
                       <div className="collapse-title text-lg font-medium">Side Effects</div>
                       <div className="collapse-content">
                         <p
                           dangerouslySetInnerHTML={{
                             __html: formatTextWithLineBreaks(item.more_info?.side_effects),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {item.more_info?.overview && (
+                    <div className="collapse collapse-arrow border-base-300 bg-base-200 border">
+                      <input type="checkbox" />
+                      <div className="collapse-title text-lg font-medium">Overview</div>
+                      <div className="collapse-content">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: formatTextWithLineBreaks(item.more_info?.overview),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {item.more_info?.uses && (
+                    <div className="collapse collapse-arrow border-base-300 bg-base-200 border">
+                      <input type="checkbox" />
+                      <div className="collapse-title text-lg font-medium">Uses</div>
+                      <div className="collapse-content">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: formatTextWithLineBreaks(item.more_info?.uses),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {item.more_info?.precautions && (
+                    <div className="collapse collapse-arrow border-base-300 bg-base-200 border">
+                      <input type="checkbox" />
+                      <div className="collapse-title text-lg font-medium">Precautions</div>
+                      <div className="collapse-content">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: formatTextWithLineBreaks(item.more_info?.precautions),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {item.more_info?.interactions && (
+                    <div className="collapse collapse-arrow border-base-300 bg-base-200 border">
+                      <input type="checkbox" />
+                      <div className="collapse-title text-lg font-medium">Interactions</div>
+                      <div className="collapse-content">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: formatTextWithLineBreaks(item.more_info?.interactions),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {item.more_info?.origin && (
+                    <div className="collapse collapse-arrow border-base-300 bg-base-200 border">
+                      <input type="checkbox" />
+                      <div className="collapse-title text-lg font-medium">Origin</div>
+                      <div className="collapse-content">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: formatTextWithLineBreaks(item.more_info?.origin),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {item.more_info?.daily_intake && (
+                    <div className="collapse collapse-arrow border-base-300 bg-base-200 border">
+                      <input type="checkbox" />
+                      <div className="collapse-title text-lg font-medium">Daily Intake</div>
+                      <div className="collapse-content">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: formatTextWithLineBreaks(item.more_info?.daily_intake),
                           }}
                         />
                       </div>
