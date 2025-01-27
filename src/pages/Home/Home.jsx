@@ -9,7 +9,9 @@ const Home = () => {
 
   return (
     <>
-      <FoodInfo />
+      <div className="min-h-screen">
+        <FoodInfo />
+      </div>
     </>
   );
 };
