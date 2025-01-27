@@ -16,9 +16,6 @@ const FoodInfo = () => {
   return (
     <>
       <div className="container mx-auto">
-        <div className="text-center">
-          <div className="text-2xl">Food Info</div>
-        </div>
         <div className="">
           <Select
             className="shadow-xl"
