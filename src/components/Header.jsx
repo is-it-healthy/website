@@ -1,3 +1,4 @@
+import { List } from "react-bootstrap-icons";
 const Header = () => {
 
 	return (
@@ -6,14 +7,18 @@ const Header = () => {
 				<div className="navbar-start">
 					<div className="dropdown">
 						<div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-							...
+							<List className="text-lg" />
 						</div>
 						<ul
 							tabIndex={0}
 							className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-							<li><a>Homepage</a></li>
-							<li><a>Portfolio</a></li>
-							<li><a>About</a></li>
+							<li><a>Help & Support</a></li>
+							<li><a>How it works?</a></li>
+							<li><a>License</a></li>
+							<li><a>Open Source Licenses</a></li>
+							<li><a>Contribute Code</a></li>
+							<li><a>Contribute Data</a></li>
+							<li><a>Contributors</a></li>
 						</ul>
 					</div>
 				</div>
