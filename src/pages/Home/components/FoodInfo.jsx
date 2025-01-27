@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import useLoadJson from "../../../hooks/useLoadJson";
+import { formatTextWithLineBreaks } from "../../../utils/support"
 
 const FoodInfo = () => {
 
@@ -38,11 +39,28 @@ const FoodInfo = () => {
         <div className="mt-10">
           <div className="grid grid-cols-2 gap-4">
             {fetchedAllData?.map((item) => (
-              <div className="card card-compact bg-base-100 shadow-xl w-full">
+              <div className="card card-compact bg-base-100 shadow-xl w-full" key={item.code}>
                 <div className="card-body">
-                  <h2 className="card-title">Shoes!</h2>
-                  <p>If a dog chews shoes whose shoes does he choose?</p>
-                  <div className="card-actions justify-end">
+                  <div className="card-title">{item.display_name}</div>
+                  <div className="">{item.names}</div>
+                  <div className="">{item.more_info?.banned_in}</div>
+
+                  {item.more_info?.side_effects && (
+                    <div className="collapse bg-base-200">
+                      <input type="checkbox" />
+                      <div className="collapse-title text-lg font-medium">Side Effects</div>
+                      <div className="collapse-content">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: formatTextWithLineBreaks(item.more_info?.side_effects),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+
+                  <div className="card-actions justify-start">
                     <button className="btn btn-sm btn-primary">Buy Now</button>
                   </div>
                 </div>
