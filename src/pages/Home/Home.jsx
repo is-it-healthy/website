@@ -3,15 +3,15 @@ import { FoodInfo } from "./components/FoodInfo";
 
 const Home = () => {
 
-    useEffect(() => {
-        document.title = `Home`
-    })
+  useEffect(() => {
+    document.title = `Home`
+  })
 
-    return (
-        <>
-            <FoodInfo />
-        </>
-    );
+  return (
+    <>
+      <FoodInfo />
+    </>
+  );
 };
 
 export { Home }
