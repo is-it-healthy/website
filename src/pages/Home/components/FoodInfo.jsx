@@ -3,7 +3,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import useLoadJson from "../../../hooks/useLoadJson";
 import { formatTextWithLineBreaks } from "../../../utils/support"
-import { insDataSections } from "../../../utils/consts";
+import { insDataSections, reactSelectCustomOptions } from "../../../utils/consts";
 
 const FoodInfo = () => {
 
@@ -35,6 +35,7 @@ const FoodInfo = () => {
             }))}
             onChange={setSelectedData}
             value={selectedData}
+            styles={reactSelectCustomOptions}
           />
         </div>
         <div className="mt-10">
