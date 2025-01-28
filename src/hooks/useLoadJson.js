@@ -29,7 +29,7 @@ function useLoadJson(inputUrls) {
                 }
                 return await res.json();
               } catch (err) {
-                return { error: err.message };
+                return { error: err.message, item: item };
               }
             })
           );
