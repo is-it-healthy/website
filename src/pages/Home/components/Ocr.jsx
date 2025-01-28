@@ -23,6 +23,7 @@ function Ocr() {
       setResult(text);
     });
   };
+
   return (
     <div className="App">
       <input type="file" onChange={onFileChange} />
@@ -30,7 +31,7 @@ function Ocr() {
         <input type="button" value="Submit" onClick={processImage} />
       </div>
       <div>
-        <progress value={progress} max={1} />
+        <progress className="progress w-56" value={progress} max="1"></progress>
       </div>
       {result !== "" && (
         <div style={{ marginTop: 20, fontSize: 24, color: "teal" }}>
