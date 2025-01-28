@@ -4,7 +4,6 @@ import Tesseract from "tesseract.js";
 function Ocr() {
   const [file, setFile] = useState();
   const [progress, setProgress] = useState(0);
-  const [language, setLanguage] = useState("eng");
   const [result, setResult] = useState("");
 
   const onFileChange = (e) => {
@@ -14,7 +13,7 @@ function Ocr() {
   const processImage = () => {
     setResult("");
     setProgress(0);
-    Tesseract.recognize(file, language, {
+    Tesseract.recognize(file, "eng", {
       logger: (m) => {
         if (m.status === "recognizing text") {
           setProgress(m.progress);
@@ -27,12 +26,6 @@ function Ocr() {
   return (
     <div className="App">
       <input type="file" onChange={onFileChange} />
-      <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-        <option value="eng">English</option>
-        <option value="tel">Telugu</option>
-        <option value="hin">Hindi</option>
-        <option value="kan">Kannada</option>
-      </select>
       <div style={{ marginTop: 25 }}>
         <input type="button" value="Submit" onClick={processImage} />
       </div>
