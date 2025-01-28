@@ -1,4 +1,4 @@
-import { List, ExclamationTriangle, QuestionCircle } from "react-bootstrap-icons";
+import { List, ExclamationTriangle, QuestionCircle, People, FileEarmarkArrowUp, CodeSlash, Journals, Book } from "react-bootstrap-icons";
 const Header = () => {
 
 	return (
@@ -12,13 +12,13 @@ const Header = () => {
 						<ul
 							tabIndex={0}
 							className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-							<li><a>Help & Support</a></li>
-							<li><a>How it works?</a></li>
-							<li><a>License</a></li>
-							<li><a>Open Source Licenses</a></li>
-							<li><a>Contribute Code</a></li>
-							<li><a>Contribute Data</a></li>
-							<li><a>Contributors</a></li>
+							<li><a><QuestionCircle className="text-lg" />Help & Support</a></li>
+							<li><a><ExclamationTriangle className="text-lg" />How it works?</a></li>
+							<li><a><Book className="text-lg" />License</a></li>
+							<li><a><Journals className="text-lg" />Open Source Licenses</a></li>
+							<li><a><CodeSlash className="text-lg" />Contribute Code</a></li>
+							<li><a><FileEarmarkArrowUp className="text-lg" />Contribute Data</a></li>
+							<li><a><People className="text-lg" /> Contributors</a></li>
 						</ul>
 					</div>
 				</div>
