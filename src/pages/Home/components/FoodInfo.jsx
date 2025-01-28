@@ -32,7 +32,7 @@ const FoodInfo = () => {
             </div>
           ) : (
             <Select
-              className="shadow-xl"
+              className="shadow-xl text-lg"
               closeMenuOnSelect={false}
               components={animatedComponents}
               defaultValue={[]}
@@ -45,6 +45,7 @@ const FoodInfo = () => {
               onChange={setSelectedData}
               value={selectedData}
               styles={reactSelectCustomOptions}
+              placeholder="Select INS codes"
             />
           )}
         </div>
