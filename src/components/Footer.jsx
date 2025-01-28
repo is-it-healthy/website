@@ -20,7 +20,7 @@ const Footer = () => {
             <Github className="text-2xl" />
           </a>
         </div>
-        <span className="text-sm">2022 - {new Date().getFullYear()} &copy; Hirusha Adikari</span>
+        <span className="text-sm">2022 - {new Date().getFullYear()} <span className="font-bold">&copy; Hirusha Adikari</span></span>
       </div>
     </footer>
   );
