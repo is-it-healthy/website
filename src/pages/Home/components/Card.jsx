@@ -1,16 +1,9 @@
-import { useState, useEffect } from "react";
-
 import { insDataSections } from "../../../utils/consts";
 import { formatTextWithLineBreaks } from "../../../utils/support";
 import useLoadJson from "../../../hooks/useLoadJson";
 
 const Card = ({ item }) => {
-
-  const {
-    data: cardData,
-    loading,
-    error,
-  } = useLoadJson(item.url);
+  const { data: cardData, loading, error } = useLoadJson(item.url);
 
   return (
     <div className="card card-compact bg-base-100 shadow-xl w-full">
@@ -18,19 +11,21 @@ const Card = ({ item }) => {
         {loading ? (
           <div className="flex justify-center items-center py-4">
             <span className="loading loading-spinner loading-lg"></span>
-            <span className="ml-2">Loading details...</span>
+            <span className="ml-2">Loading {item.label}...</span>
           </div>
         ) : error ? (
           <>
-            <div className="card-title">Unable to fetch {item.label}</div>
-            <div>{error}</div>
+            <div className="card-title text-error">
+              Error loading data for {item.label}
+            </div>
+            <div className="text-sm text-gray-500">{error}</div>
           </>
-        ) : (
+        ) : cardData ? (
           <>
-            {/* Main Stuff */}
-            <div className="card-title">{cardData.display_name}</div>
-            <div>{cardData.names}</div>
-            <div>{cardData.more_info?.banned_in}</div>
+            {/* Main Info */}
+            <div className="card-title">{cardData.display_name || item.label}</div>
+            <div>{cardData.names || "No names available"}</div>
+            <div>{cardData.more_info?.banned_in || "No banned regions specified"}</div>
 
             {/* More Info */}
             {insDataSections.map(
@@ -61,25 +56,27 @@ const Card = ({ item }) => {
             )}
 
             {/* Articles / Learn More */}
-            {cardData.more_info?.articles && (
+            {cardData.more_info?.articles ? (
               <div className="card-actions flex justify-start items-center">
                 <div className="text-md font-medium">Learn More: </div>
-                {Object.entries(cardData.more_info?.articles ?? {}).map(
-                  ([name, url]) => (
-                    <a
-                      key={url}
-                      className="link"
-                      href={url}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {name}
-                    </a>
-                  )
-                )}
+                {Object.entries(cardData.more_info?.articles).map(([name, url]) => (
+                  <a
+                    key={url}
+                    className="link"
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {name}
+                  </a>
+                ))}
               </div>
+            ) : (
+              <div className="text-gray-500">No articles available.</div>
             )}
           </>
+        ) : (
+          <div className="text-gray-500">No data available for {item.label}.</div>
         )}
       </div>
     </div>
