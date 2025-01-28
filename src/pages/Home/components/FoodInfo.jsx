@@ -3,7 +3,7 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
 import useLoadJson from "../../../hooks/useLoadJson";
-import { reactSelectCustomOptions } from "../../../utils/consts";
+import { reactSelectCustomOptions, urlInsEachStart, urlInsSummary } from "../../../utils/consts";
 import { Card } from "./Card";
 
 
@@ -13,9 +13,7 @@ const FoodInfo = () => {
     data: fetchedListData,
     fetchedListLoading,
     fetchedListError,
-  } = useLoadJson(
-    "https://raw.githubusercontent.com/is-it-healthy/data/refs/heads/v2/dist/ins-summary.json"
-  );
+  } = useLoadJson(urlInsSummary);
 
   const animatedComponents = makeAnimated();
 
@@ -42,7 +40,7 @@ const FoodInfo = () => {
               options={fetchedListData?.map((item) => ({
                 value: item.code,
                 label: item.name,
-                url: `https://raw.githubusercontent.com/is-it-healthy/data/v2/dist/single/${item.code}.json`,
+                url: `${urlInsEachStart}${item.code}.json`,
               }))}
               onChange={setSelectedData}
               value={selectedData}

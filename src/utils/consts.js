@@ -1,3 +1,13 @@
+/*
+URLs to fetch data from
+*/
+export const urlInsSummary = "https://raw.githubusercontent.com/is-it-healthy/data/refs/heads/v2/dist/ins-summary.json"
+export const urlInsEachStart = `https://raw.githubusercontent.com/is-it-healthy/data/v2/dist/single/`
+
+
+/*
+Fields for each fetched inidivual ins item
+*/
 export const insDataSections = [
   { key: "side_effects", title: "Side Effects" },
   { key: "overview", title: "Overview" },
