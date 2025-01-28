@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 /**
  * Custom hook to load JSON from a single URL.
- * @param {string | string[]} inputUrl - A single URL.
- * @returns {{ data: any, error: any, loading: boolean }}
+ * @param {string} inputUrl - A single URL.
+ * @returns {{ data: any, error: string | null, loading: boolean }}
  */
 function useLoadJson(inputUrl) {
   const [data, setData] = useState(null);
@@ -20,12 +20,12 @@ function useLoadJson(inputUrl) {
       try {
         const response = await fetch(inputUrl);
         if (!response.ok) {
-          throw new Error(`Error fetching ${response.url}: ${response.statusText}`);
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
         const jsonData = await response.json();
         setData(jsonData);
       } catch (err) {
-        setError(err);
+        setError(err.message || "Unknown error occurred");
       } finally {
         setLoading(false);
       }
