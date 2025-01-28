@@ -115,22 +115,25 @@ const FoodInfo = () => {
                         )}
 
                         {/* Articles / Learn More */}
-                        <div className="card-actions flex justify-start items-center">
-                          <div className="text-md font-medium">Learn More: </div>
-                          {Object.entries(item.more_info?.articles ?? {}).map(
-                            ([name, url]) => (
-                              <a
-                                key={url}
-                                className="link"
-                                href={url}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                {name}
-                              </a>
-                            )
-                          )}
-                        </div>
+                        {item.more_info?.articles && (
+                          <div className="card-actions flex justify-start items-center">
+                            <div className="text-md font-medium">Learn More: </div>
+                            {Object.entries(item.more_info?.articles ?? {}).map(
+                              ([name, url]) => (
+                                <a
+                                  key={url}
+                                  className="link"
+                                  href={url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {name}
+                                </a>
+                              )
+                            )}
+                          </div>
+                        )}
+
                       </>
                     )}
                   </div>
@@ -138,7 +141,9 @@ const FoodInfo = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center text-gray-500">No data found.</div>
+            <div className="text-center text-gray-500">
+              Show Help
+            </div>
           )}
         </div>
       </div>
