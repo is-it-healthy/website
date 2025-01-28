@@ -52,7 +52,7 @@ const FoodInfo = () => {
                       item.more_info?.[section.key] && (
                         <div key={section.key} className="collapse collapse-arrow border-base-300 bg-base-200 border">
                           <input type="checkbox" defaultChecked={section.key === "side_effects"} />
-                          <div className="collapse-title text-lg font-medium">{section.title}</div>
+                          <div className="collapse-title text-md font-medium">{section.title}</div>
                           <div className="collapse-content">
                             <p
                               dangerouslySetInnerHTML={{
@@ -65,10 +65,11 @@ const FoodInfo = () => {
                   )}
 
                   {/* Articles / Learn More */}
-                  <div className="card-actions justify-start">
+                  <div className="card-actions flex justify-start items-center">
+                    <div className="text-md font-medium">Learn More: </div>
                     {Object.entries(item.more_info?.articles ?? {}).map(([name, url]) => (
                       <a key={url}
-                        className="btn btn-sm btn-primary"
+                        className="link"
                         href={url}
                         target="_blank"
                         rel="noreferrer">
