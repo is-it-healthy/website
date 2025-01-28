@@ -3,7 +3,7 @@ import { Github, BrowserChrome } from "react-bootstrap-icons";
 const Footer = () => {
   return (
     <footer className="py-3 mt-8">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="mx-3 lg:mx-5 flex justify-between items-center">
         <div className="flex gap-4">
           <a
             href="https://github.com"
