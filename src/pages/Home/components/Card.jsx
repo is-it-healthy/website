@@ -1,31 +1,16 @@
 import { useState, useEffect } from "react";
+
 import { insDataSections } from "../../../utils/consts";
 import { formatTextWithLineBreaks } from "../../../utils/support";
+import useLoadJson from "../../../hooks/useLoadJson";
 
 const Card = ({ item }) => {
-  const [cardData, setCardData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(item.url);
-        if (!response.ok) {
-          throw new Error(`Error fetching ${response.url}: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setCardData(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [item.url]);
+  const {
+    data: cardData,
+    loading,
+    error,
+  } = useLoadJson(item.url);
 
   return (
     <div className="card card-compact bg-base-100 shadow-xl w-full">
