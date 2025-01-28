@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+
 import useLoadJson from "../../../hooks/useLoadJson";
-import { formatTextWithLineBreaks } from "../../../utils/support";
-import { insDataSections, reactSelectCustomOptions } from "../../../utils/consts";
+import { reactSelectCustomOptions } from "../../../utils/consts";
 import { Card } from "./Card";
+
 
 const FoodInfo = () => {
   const [selectedData, setSelectedData] = useState([]);
@@ -15,11 +16,6 @@ const FoodInfo = () => {
   } = useLoadJson(
     "https://raw.githubusercontent.com/is-it-healthy/data/refs/heads/v2/dist/ins-summary.json"
   );
-  const {
-    data: fetchedAllData,
-    fetchedAllLoading,
-    fetchedAllError,
-  } = useLoadJson(selectedData);
 
   const animatedComponents = makeAnimated();
 
