@@ -5,7 +5,7 @@ import makeAnimated from "react-select/animated";
 import useLoadJson from "../../../hooks/useLoadJson";
 import { reactSelectCustomOptions, urlInsEachStart, urlInsSummary } from "../../../utils/consts";
 import { Card } from "./Card";
-import { Ocr } from "./Ocr";
+// import { Ocr } from "./Ocr";
 
 
 const FoodInfo = () => {
@@ -21,14 +21,18 @@ const FoodInfo = () => {
   return (
     <>
       <div className="container mx-auto">
+
         {/* 
+          -------------------------------------------------------------
           OCR Feature
             Will get to this later... not today
             will require some vodoo magic to integrate this seamlessly
+          -------------------------------------------------------------
         */}
         {/* <div className="">
           <Ocr />
         </div> */}
+
         <div>
           {fetchedListLoading ? (
             <div className="flex justify-center items-center py-4">
