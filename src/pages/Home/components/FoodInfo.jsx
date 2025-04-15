@@ -21,9 +21,14 @@ const FoodInfo = () => {
   return (
     <>
       <div className="container mx-auto">
-        <div className="">
+        {/* 
+          OCR Feature
+            Will get to this later... not today
+            will require some vodoo magic to integrate this seamlessly
+        */}
+        {/* <div className="">
           <Ocr />
-        </div>
+        </div> */}
         <div>
           {fetchedListLoading ? (
             <div className="flex justify-center items-center py-4">
