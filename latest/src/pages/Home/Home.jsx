@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-// import { FoodInfo } from "./components/FoodInfo";
+import { FoodInfo } from "./components/FoodInfo";
 
 const Home = () => {
 
@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <div className="min-h-screen">
-        {/* <FoodInfo /> */}
+        <FoodInfo />
         <div className="btn">Test</div>
       </div>
     </>
