@@ -25,7 +25,7 @@ function useLoadJson(inputUrl) {
         const jsonData = await response.json();
         setData(jsonData);
       } catch (err) {
-        setError(`${err.message} Unable to fecth: ${inputUrl}` || "Unknown error occurred");
+        setError((err.message ? `${err.message} Unable to fetch: ${inputUrl}` : "Unknown error occurred"));
       } finally {
         setLoading(false);
       }
