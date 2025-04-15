@@ -11,7 +11,7 @@ const Header = () => {
 						</div>
 						<ul
 							tabIndex={0}
-							className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+							className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-sm">
 							<li><a><QuestionCircle className="text-lg" />Help & Support</a></li>
 							<li><a><ExclamationTriangle className="text-lg" />How it works?</a></li>
 							<li><a><Book className="text-lg" />License</a></li>
