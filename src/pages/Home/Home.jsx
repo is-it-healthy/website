@@ -11,6 +11,7 @@ const Home = () => {
     <>
       <div className="min-h-screen">
         <FoodInfo />
+        <div className="btn">Test</div>
       </div>
     </>
   );
