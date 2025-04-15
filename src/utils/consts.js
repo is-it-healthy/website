@@ -1,8 +1,8 @@
 /*
 URLs to fetch data from
 */
-export const urlInsSummary = "https://raw.githubusercontent.com/is-it-healthy/data/refs/heads/v2/dist/ins-summary.json"
-export const urlInsEachStart = `https://raw.githubusercontent.com/is-it-healthy/data/v2/dist/single/`
+export const urlInsSummary = "https://raw.githubusercontent.com/is-it-healthy/data/refs/heads/main/dist/ins-summary.json"
+export const urlInsEachStart = `https://raw.githubusercontent.com/is-it-healthy/data/main/dist/single/`
 
 
 /*
