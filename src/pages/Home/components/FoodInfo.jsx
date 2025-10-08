@@ -7,7 +7,6 @@ import { reactSelectCustomOptions, urlInsEachStart, urlInsSummary } from "../../
 import { Card } from "./Card";
 // import { Ocr } from "./Ocr";
 
-
 const FoodInfo = () => {
   const [selectedData, setSelectedData] = useState([]);
   const {
@@ -33,6 +32,7 @@ const FoodInfo = () => {
           <Ocr />
         </div> */}
 
+        {/* Search Bar */}
         <div>
           {fetchedListLoading ? (
             <div className="flex justify-center items-center py-4">
@@ -63,6 +63,7 @@ const FoodInfo = () => {
           )}
         </div>
 
+        {/* Results */}
         <div className="mt-10">
           {selectedData.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -75,6 +76,9 @@ const FoodInfo = () => {
           )}
         </div>
       </div>
+
+       
+
     </>
   );
 };
