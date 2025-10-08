@@ -45,7 +45,7 @@ const FoodInfo = () => {
             </div>
           ) : (
             <Select
-              className="shadow-xl text-lg"
+              className="shadow-xl text-lg mx-6 mt-6"
               closeMenuOnSelect={false}
               components={animatedComponents}
               defaultValue={[]}
