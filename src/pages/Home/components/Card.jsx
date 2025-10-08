@@ -9,9 +9,13 @@ const Card = ({ item }) => {
     <div className="card card-compact bg-base-100 shadow-xl w-full">
       <div className="card-body">
         {loading ? (
-          <div className="flex justify-center items-center py-4">
-            <span className="loading loading-spinner loading-lg"></span>
-            <span className="ml-2">Loading {item.label}...</span>
+          <div className="flex flex-col center gap-4 py-4 px-7 pt-10">
+            <div className="skeleton h-8 w-1/2"></div>
+            <div className="skeleton h-4 w-3/4"></div>
+            <div className="skeleton h-4 w-3/4"></div>
+            <div className="skeleton h-16 w-full"></div>
+            <div className="skeleton h-16 w-full"></div>
+            <div className="skeleton h-16 w-full"></div>
           </div>
         ) : error ? (
           <>
