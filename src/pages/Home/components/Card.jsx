@@ -29,8 +29,12 @@ const Card = ({ item }) => {
           <>
             {/* Main Info */}
             <div className="card-title">{cardData.display_name || item.label}</div>
+            {(cardData.function ? (
+              <div>Function: {cardData.function}</div>
+            ) : (
+            <></>
+            ))}
             <div>{cardData.names || "No names available"}</div>
-            <div>{cardData.function || "No function mentioned"}</div>
             <div>{cardData.more_info?.banned_in || "No banned regions specified"}</div>
 
             {/* More Info */}
