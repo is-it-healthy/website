@@ -4,7 +4,7 @@ import { FoodInfo } from "./components/FoodInfo";
 const Home = () => {
 
   useEffect(() => {
-    document.title = `Home`
+    document.title = `Home | is it healthy?`
   })
 
   return (
