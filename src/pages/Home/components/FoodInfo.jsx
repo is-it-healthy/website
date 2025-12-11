@@ -5,7 +5,7 @@ import makeAnimated from "react-select/animated";
 import useLoadJson from "../../../hooks/useLoadJson";
 import { reactSelectCustomOptions, urlInsEachStart, urlInsSummary } from "../../../utils/consts";
 import { Card } from "./Card";
-// import { Ocr } from "./Ocr";
+import { Ocr } from "./Ocr";
 
 const FoodInfo = () => {
   const [selectedData, setSelectedData] = useState([]);
@@ -28,9 +28,9 @@ const FoodInfo = () => {
             will require some vodoo magic to integrate this seamlessly
           -------------------------------------------------------------
         */}
-        {/* <div className="">
+        <div className="">
           <Ocr />
-        </div> */}
+        </div>
 
         {/* Search Bar */}
         <div>
@@ -77,7 +77,7 @@ const FoodInfo = () => {
         </div>
       </div>
 
-       
+
 
     </>
   );
