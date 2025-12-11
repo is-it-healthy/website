@@ -2,8 +2,6 @@ import { useState, useRef } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import Tesseract from "tesseract.js";
-// import Cropper from "react-easy-crop";
-
 import 'react-advanced-cropper/dist/style.css';
 import { Cropper } from 'react-advanced-cropper';
 
@@ -23,34 +21,15 @@ const FoodInfo = () => {
   } = useLoadJson(urlInsSummary);
 
   // for uploading files
-  const [ocrActive, setOcrActive] = useState(false);
-  const [ocrFile, setOcrFile] = useState(null);
   const [ocrProgress, setOcrProgress] = useState(0);
   const [ocrResult, setOcrResult] = useState("");
   const [ocrError, setOcrError] = useState("");
   const fileInputRef = useRef(null);
 
   // for image cropping
-  const [rawImageUrl, setRawImageUrl] = useState(null);   // for preview
-  // const [cropping, setCropping] = useState(false);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-
   const [cropSource, setCropSource] = useState(null);
   const [cropping, setCropping] = useState(false);
   const cropperRef = useRef(null);
-
-
-  const ocrOnFileChange = (file) => {
-    if (file && file.type.startsWith("image/")) {
-      setOcrFile(file);
-      setOcrError(""); // Clear any previous errors
-    } else {
-      setOcrError("Please select a valid image file.");
-      setOcrFile(null);
-    }
-  };
 
   const ocrProcessImage = (file) => {
     if (!file) {
@@ -76,65 +55,6 @@ const FoodInfo = () => {
         setOcrError("An error occurred while processing the image.");
       });
   };
-
-
-  const handleFileInputChange = (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      setOcrError("Please select a valid image file.");
-      setOcrFile(null);
-      return;
-    }
-
-    // Keep the original file in state if you want
-    setOcrFile(file);
-    setOcrError("");
-
-    // Create a preview URL and open crop UI
-    const url = URL.createObjectURL(file);
-    setRawImageUrl(url);
-    setCropping(true);
-  };
-
-  async function getCroppedImg(imageSrc, cropPixels) {
-    const image = new Image();
-    image.src = imageSrc;
-    await new Promise((resolve, reject) => {
-      image.onload = resolve;
-      image.onerror = reject;
-    });
-
-    const canvas = document.createElement("canvas");
-    canvas.width = cropPixels.width;
-    canvas.height = cropPixels.height;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      cropPixels.x,
-      cropPixels.y,
-      cropPixels.width,
-      cropPixels.height,
-      0,
-      0,
-      cropPixels.width,
-      cropPixels.height
-    );
-
-    return new Promise((resolve) => {
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          resolve(null);
-          return;
-        }
-        // Turn Blob into File so Tesseract is happy
-        const file = new File([blob], "cropped-image.png", { type: "image/png" });
-        resolve(file);
-      }, "image/png");
-    });
-  }
 
   const handleConfirmCrop = () => {
     if (!cropperRef.current) return;
@@ -165,17 +85,12 @@ const FoodInfo = () => {
         URL.revokeObjectURL(cropSource);
         setCropSource(null);
 
-        // Send cropped file into your existing OCR function
         ocrProcessImage(file);
       },
       "image/png",
       0.95
     );
   };
-
-
-
-
 
   const animatedComponents = makeAnimated();
 
@@ -228,10 +143,8 @@ const FoodInfo = () => {
           )}
         </div>
 
-        {/* OCR Menu Stuffs */}
-
+        {/* OCR (All) */}
         <>
-          {/* Hidden input – always rendered so ref is valid */}
           <input
             type="file"
             accept="image/*"
@@ -291,55 +204,20 @@ const FoodInfo = () => {
           )}
         </>
 
-        {/* OCR Image Cropping Stuffs */}
-        {cropping && rawImageUrl && (
-          <div className="my-6 mx-2 bg-base-200 rounded-xl p-4 shadow-lg">
-            <div className="relative w-full h-72">
-              <Cropper
-                image={rawImageUrl}
-                crop={crop}
-                zoom={zoom}
-                aspect={1} // or any ratio you want
-                onCropChange={setCrop}
-                onZoomChange={setZoom}
-                onCropComplete={(_, croppedPixels) => setCroppedAreaPixels(croppedPixels)}
-              />
-            </div>
-
-            <div className="flex justify-between items-center mt-4">
-              <input
-                type="range"
-                min={1}
-                max={3}
-                step={0.1}
-                value={zoom}
-                onChange={(e) => setZoom(Number(e.target.value))}
-                className="range range-sm flex-1 mr-4"
-              />
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={handleConfirmCrop}
-              >
-                Use This Crop
-              </button>
-            </div>
-          </div>
-        )}
-
+        {/* OCR (Crop)  */}
         {cropping && cropSource && (
-          <div className="my-6 mx-2 bg-base-200 rounded-xl p-4 shadow-lg">
+          <div className="my-16 mx-2 bg-base-200 rounded-xl p-4 shadow-lg">
             <div className="relative w-full h-80">
               <Cropper
                 ref={cropperRef}
                 src={cropSource}
                 className="w-full h-full"
-                // Rectangle stencil with *no* aspectRatio => free, like Google Photos
                 stencilProps={{
                   movable: true,
                   resizable: true,
                   lines: true,
                   handlers: true,
-                  grid: true, // optional: show rule-of-thirds grid
+                  grid: true,
                 }}
               />
             </div>
@@ -364,8 +242,6 @@ const FoodInfo = () => {
             </div>
           </div>
         )}
-
-
 
         {/* Results */}
         <div className="mt-10">
