@@ -40,11 +40,15 @@ const FoodInfo = () => {
       return;
     }
 
-    // 1. Find all 2–3 digit numeric codes in the extracted text (e.g. 86, 320)
+    // =========
+    // 1) NUMERIC MATCHING (EXACT ONLY)
+    // =========
+
+    // Find all 2–3 digit numeric codes in the extracted text (e.g. 86, 320)
     const codeMatches = extractedText.match(/\b(\d{2,3})\b/g) || [];
     const uniqueCodes = [...new Set(codeMatches.map((c) => parseInt(c, 10)))];
 
-    // 2. Build a lookup from numeric code → list of dict items (E320, INS320, etc.)
+    // Build a lookup from numeric code → list of dict items (E320, INS320, etc.)
     const numericLookup = new Map();
 
     fetchedListData.forEach((item) => {
@@ -61,7 +65,7 @@ const FoodInfo = () => {
     const matchedItems = [];
     const unmatchedCodes = [];
 
-    // 3. Exact matching only – no more “closest” nonsense
+    // Exact matching only – no fuzzy numeric logic
     uniqueCodes.forEach((codeNum) => {
       const items = numericLookup.get(codeNum);
       if (items && items.length > 0) {
@@ -77,20 +81,80 @@ const FoodInfo = () => {
       }
     });
 
+    // =========
+    // 2) TEXT / PHRASE MATCHING (SEPARATE FROM NUMBERS)
+    // =========
+
+    const normalize = (s) =>
+      s
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ") // remove punctuation etc.
+        .replace(/\s+/g, " ")
+        .trim();
+
+    const normalizedText = normalize(extractedText);
+    const textTokens = new Set(normalizedText.split(" ").filter(Boolean));
+
+    // Codes already matched via numbers
+    const numericMatchedCodes = new Set(matchedItems.map((m) => m.matchedCode));
+
+    const textMatchedItems = [];
+
+    fetchedListData.forEach((item) => {
+      // OPTIONAL: skip items that already matched numerically
+      if (numericMatchedCodes.has(item.code)) return;
+
+      // Use the part after the first "-" as the "name", if present
+      const namePart = item.name.split("-").slice(1).join("-") || item.name;
+      const normName = normalize(namePart);
+      if (!normName) return;
+
+      const nameTokens = normName.split(" ").filter(Boolean);
+      if (nameTokens.length === 0) return;
+
+      let overlapCount = 0;
+      nameTokens.forEach((t) => {
+        if (textTokens.has(t)) overlapCount++;
+      });
+
+      const tokenScore = overlapCount / nameTokens.length;
+      const substringMatch = normalizedText.includes(normName);
+
+      // Heuristic:
+      // - strong substring match, OR
+      // - at least 2 overlapping tokens and ≥ 0.5 of the name’s tokens appear in text
+      if (substringMatch || (overlapCount >= 2 && tokenScore >= 0.5)) {
+        textMatchedItems.push({
+          matchedCode: item.code,
+          name: item.name,
+          score: substringMatch ? 1.0 : tokenScore,
+          overlapTokens: nameTokens.filter((t) => textTokens.has(t)),
+        });
+      }
+    });
+
+    // =========
+    // 3) LOG OUTPUTS
+    // =========
+
     console.log("OCR extracted text:", extractedText);
     console.log("Detected numeric codes:", uniqueCodes);
-    console.log("Matched ingredients:", matchedItems);
+    console.log("Matched ingredients (by numeric code):", matchedItems);
     console.log("Unmatched numeric codes (no exact E/INS code found):", unmatchedCodes);
+    console.log("Text-based ingredient suggestions (separate from numeric):", textMatchedItems);
 
-    // OPTIONAL: if you want to auto-select matched items in the UI
-    setSelectedData(
-      matchedItems.map((m) => ({
-        value: m.matchedCode,
-        label: m.name,
-        url: `${urlInsEachStart}${m.matchedCode}.json`,
-      }))
-    );
+    // =========
+    // 4) OPTIONAL: auto-select numeric matches in your UI
+    // =========
+    // setSelectedData(
+    //   matchedItems.map((m) => ({
+    //     value: m.matchedCode,
+    //     label: m.name,
+    //     url: `${urlInsEachStart}${m.matchedCode}.json`,
+    //   }))
+    // );
   };
+
 
 
 
