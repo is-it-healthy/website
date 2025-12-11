@@ -9,7 +9,7 @@ import { Cropper } from 'react-advanced-cropper';
 import useLoadJson from "../../../hooks/useLoadJson";
 import { reactSelectCustomOptions, urlInsEachStart, urlInsSummary } from "../../../utils/consts";
 import { Card } from "./Card";
-import { Camera } from "lucide-react";
+import { Camera, Check, X } from "lucide-react";
 
 const FoodInfo = () => {
   // search bar (for manual entry)
@@ -99,7 +99,7 @@ const FoodInfo = () => {
       <div className="container mx-auto">
 
         {/* Search Bar */}
-        <div>
+        <div className="mt-6 lg:mt-10 mx-3 lg:mx-1">
           {fetchedListLoading ? (
             <div className="flex justify-center items-center py-4">
               <span className="loading loading-spinner loading-lg"></span>
@@ -222,29 +222,29 @@ const FoodInfo = () => {
               />
             </div>
 
-            <div className="flex justify-end gap-2 mt-4">
+            <div className="flex justify-center gap-2 mt-4">
               <button
-                className="btn btn-ghost btn-sm"
+                className="btn btn-ghost"
                 onClick={() => {
                   setCropping(false);
                   URL.revokeObjectURL(cropSource);
                   setCropSource(null);
                 }}
               >
-                Cancel
+                <X />
               </button>
               <button
-                className="btn btn-primary btn-sm"
+                className="btn btn-neutral"
                 onClick={handleConfirmCrop}
               >
-                Use This Crop
+                <Check /> Confirm
               </button>
             </div>
           </div>
         )}
 
         {/* Results */}
-        <div className="mt-10">
+        <div className="mt-10 mx-3">
           {selectedData.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {selectedData.map((item) => (
