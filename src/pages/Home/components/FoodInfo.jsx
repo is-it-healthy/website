@@ -31,6 +31,69 @@ const FoodInfo = () => {
   const [cropping, setCropping] = useState(false);
   const cropperRef = useRef(null);
 
+  const ocrProcessText = (extractedText) => {
+    // Keep original text for display
+    setOcrResult(extractedText);
+
+    if (!fetchedListData || fetchedListData.length === 0) {
+      console.warn("No fetchedListData available for OCR matching.");
+      return;
+    }
+
+    // 1. Find all 2–3 digit numeric codes in the extracted text (e.g. 86, 320)
+    const codeMatches = extractedText.match(/\b(\d{2,3})\b/g) || [];
+    const uniqueCodes = [...new Set(codeMatches.map((c) => parseInt(c, 10)))];
+
+    // 2. Build a lookup from numeric code → list of dict items (E320, INS320, etc.)
+    const numericLookup = new Map();
+
+    fetchedListData.forEach((item) => {
+      const match = item.code.match(/(\d+)/); // pull out "100" from "E100ii", "INS100", etc.
+      if (!match) return;
+
+      const num = parseInt(match[1], 10);
+      if (!numericLookup.has(num)) {
+        numericLookup.set(num, []);
+      }
+      numericLookup.get(num).push(item);
+    });
+
+    const matchedItems = [];
+    const unmatchedCodes = [];
+
+    // 3. Exact matching only – no more “closest” nonsense
+    uniqueCodes.forEach((codeNum) => {
+      const items = numericLookup.get(codeNum);
+      if (items && items.length > 0) {
+        items.forEach((item) => {
+          matchedItems.push({
+            scannedCode: codeNum,
+            matchedCode: item.code,
+            name: item.name,
+          });
+        });
+      } else {
+        unmatchedCodes.push(codeNum);
+      }
+    });
+
+    console.log("OCR extracted text:", extractedText);
+    console.log("Detected numeric codes:", uniqueCodes);
+    console.log("Matched ingredients:", matchedItems);
+    console.log("Unmatched numeric codes (no exact E/INS code found):", unmatchedCodes);
+
+    // OPTIONAL: if you want to auto-select matched items in the UI
+    setSelectedData(
+      matchedItems.map((m) => ({
+        value: m.matchedCode,
+        label: m.name,
+        url: `${urlInsEachStart}${m.matchedCode}.json`,
+      }))
+    );
+  };
+
+
+
   const ocrProcessImage = (file) => {
     if (!file) {
       setOcrError("No image file selected.");
@@ -49,7 +112,7 @@ const FoodInfo = () => {
       },
     })
       .then(({ data: { text } }) => {
-        setOcrResult(text);
+        ocrProcessText(text);
       })
       .catch(() => {
         setOcrError("An error occurred while processing the image.");
