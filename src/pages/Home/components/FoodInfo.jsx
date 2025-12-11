@@ -381,11 +381,14 @@ const FoodInfo = () => {
                     />
                     <span className="label-text">
                       {m.matchedCode} — {m.name}
-                      {m.overlapTokens && m.overlapTokens.length > 0 && (
-                        <span className="ml-1 text-xs text-gray-500">
-                          (matched words: {m.overlapTokens.join(", ")})
-                        </span>
-                      )}
+                      <span className="ml-1 text-xs text-gray-500">
+                        (
+                        {`${(m.score * 100).toFixed(0)}% match`}
+                        {m.overlapTokens && m.overlapTokens.length > 0 && (
+                          <>, matched words: {m.overlapTokens.join(", ")}·</>
+                        )}
+                        )
+                      </span>
                     </span>
                   </label>
                 ))}
@@ -398,7 +401,6 @@ const FoodInfo = () => {
               Unmatched numeric codes: {ocrUnmatchedCodes.join(", ")}
             </p>
           )}
-
 
         </>
 
