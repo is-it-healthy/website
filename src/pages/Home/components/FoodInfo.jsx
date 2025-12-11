@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import Tesseract from "tesseract.js";
@@ -6,7 +6,6 @@ import Tesseract from "tesseract.js";
 import useLoadJson from "../../../hooks/useLoadJson";
 import { reactSelectCustomOptions, urlInsEachStart, urlInsSummary } from "../../../utils/consts";
 import { Card } from "./Card";
-import { Ocr } from "./Ocr";
 import { Camera } from "lucide-react";
 
 const FoodInfo = () => {
@@ -24,11 +23,11 @@ const FoodInfo = () => {
   const [ocrProgress, setOcrProgress] = useState(0);
   const [ocrResult, setOcrResult] = useState("");
   const [ocrError, setOcrError] = useState("");
+  const fileInputRef = useRef(null);
 
-  const ocrOnFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type.startsWith("image/")) {
-      setOcrFile(selectedFile);
+  const ocrOnFileChange = (file) => {
+    if (file && file.type.startsWith("image/")) {
+      setOcrFile(file);
       setOcrError(""); // Clear any previous errors
     } else {
       setOcrError("Please select a valid image file.");
@@ -36,8 +35,8 @@ const FoodInfo = () => {
     }
   };
 
-  const ocrProcessImage = () => {
-    if (!ocrFile) {
+  const ocrProcessImage = (file) => {
+    if (!file) {
       setOcrError("No image file selected.");
       return;
     }
@@ -46,7 +45,7 @@ const FoodInfo = () => {
     setOcrProgress(0);
     setOcrError("");
 
-    Tesseract.recognize(ocrFile, "eng", {
+    Tesseract.recognize(file, "eng", {
       logger: (m) => {
         if (m.status === "recognizing text") {
           setOcrProgress(m.progress);
@@ -65,23 +64,11 @@ const FoodInfo = () => {
     setOcrActive(!ocrActive);
   }
 
-
   const animatedComponents = makeAnimated();
 
   return (
     <>
       <div className="container mx-auto">
-
-        {/* 
-          -------------------------------------------------------------
-          OCR Feature
-            Will get to this later... not today
-            will require some vodoo magic to integrate this seamlessly
-          -------------------------------------------------------------
-        */}
-        <div className="">
-          <Ocr />
-        </div>
 
         {/* Search Bar */}
         <div>
@@ -116,8 +103,10 @@ const FoodInfo = () => {
                   />
                 </div>
                 <button
-                  className={`btn btn-lg whitespace-nowrap ${ocrActive ? "btn-active btn-neutral" : ""}`}
-                  onClick={handleOcrButton}
+                  className={`btn btn-lg whitespace-nowrap ${ocrProgress > 0 ? "btn-disabled" : ""
+                    }`}
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={ocrProgress > 0}
                 >
                   <Camera />
                 </button>
@@ -127,32 +116,32 @@ const FoodInfo = () => {
         </div>
 
         {/* OCR Menu Stuffs */}
+
         <>
-          {ocrActive && (
+          {/* Hidden input – always rendered so ref is valid */}
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files && e.target.files[0];
+              ocrOnFileChange(file);
+              if (file) {
+                ocrProcessImage(file);
+              }
+            }}
+          />
+          {(ocrError || ocrProgress > 0 || ocrResult) && (
             <div className="my-16 mx-2 bg-base-200 rounded-xl p-6 shadow-lg">
-
-              {/* File input — auto submit */}
-              <input
-                type="file"
-                accept="image/*"
-                className="file-input file-input-bordered w-full"
-                onChange={(e) => {
-                  ocrOnFileChange(e);
-                  // automatically process if valid file
-                  if (e.target.files && e.target.files.length > 0) {
-                    ocrProcessImage();
-                  }
-                }}
-              />
-
-              {/* Error message */}
+              {/* Error */}
               {ocrError && (
                 <div className="text-red-500 text-sm mt-4">
                   <strong>Error: </strong>{ocrError}
                 </div>
               )}
 
-              {/* Progress bar */}
+              {/* Progress */}
               {ocrProgress > 0 && (
                 <div className="mt-4">
                   <progress
@@ -166,7 +155,7 @@ const FoodInfo = () => {
                 </div>
               )}
 
-              {/* OCR Result */}
+              {/* Result */}
               {ocrResult && (
                 <div className="mt-6">
                   <h2 className="text-xl font-semibold text-primary">Extracted Text</h2>
@@ -175,13 +164,9 @@ const FoodInfo = () => {
                   </div>
                 </div>
               )}
-
             </div>
           )}
         </>
-
-
-
 
         {/* Results */}
         <div className="mt-10">
@@ -196,9 +181,6 @@ const FoodInfo = () => {
           )}
         </div>
       </div>
-
-
-
     </>
   );
 };
