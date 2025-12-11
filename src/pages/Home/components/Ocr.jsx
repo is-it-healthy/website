@@ -4,44 +4,44 @@ import { useState } from "react";
 import Tesseract from "tesseract.js";
 
 function Ocr() {
-  const [file, setFile] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [result, setResult] = useState("");
-  const [error, setError] = useState("");
+  const [ocrFile, setOcrFile] = useState(null);
+  const [ocrProgress, setOcrProgress] = useState(0);
+  const [ocrResult, setOcrResult] = useState("");
+  const [ocrError, setOcrError] = useState("");
 
   const onFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.startsWith("image/")) {
-      setFile(selectedFile);
-      setError(""); // Clear any previous errors
+      setOcrFile(selectedFile);
+      setOcrError(""); // Clear any previous errors
     } else {
-      setError("Please select a valid image file.");
-      setFile(null);
+      setOcrError("Please select a valid image file.");
+      setOcrFile(null);
     }
   };
 
   const processImage = () => {
-    if (!file) {
-      setError("No image file selected.");
+    if (!ocrFile) {
+      setOcrError("No image file selected.");
       return;
     }
 
-    setResult("");
-    setProgress(0);
-    setError("");
+    setOcrResult("");
+    setOcrProgress(0);
+    setOcrError("");
 
-    Tesseract.recognize(file, "eng", {
+    Tesseract.recognize(ocrFile, "eng", {
       logger: (m) => {
         if (m.status === "recognizing text") {
-          setProgress(m.progress);
+          setOcrProgress(m.progress);
         }
       },
     })
       .then(({ data: { text } }) => {
-        setResult(text);
+        setOcrResult(text);
       })
       .catch(() => {
-        setError("An error occurred while processing the image.");
+        setOcrError("An error occurred while processing the image.");
       });
   };
 
@@ -59,36 +59,36 @@ function Ocr() {
         accept="image/*"
       />
 
-      {error && (
+      {ocrError && (
         <div className="text-red-500 text-sm mb-4">
-          <strong>Error: </strong>{error}
+          <strong>Error: </strong>{ocrError}
         </div>
       )}
 
       <button
         onClick={processImage}
         className="btn btn-primary w-full"
-        disabled={!file || progress > 0}
+        disabled={!ocrFile || ocrProgress > 0}
       >
-        {progress > 0 ? "Processing..." : "Submit"}
+        {ocrProgress > 0 ? "Processing..." : "Submit"}
       </button>
 
-      {progress > 0 && (
+      {ocrProgress > 0 && (
         <div className="mt-4">
           <progress
             className="progress progress-primary w-full"
-            value={progress}
+            value={ocrProgress}
             max="1"
           ></progress>
-          <p className="text-sm text-gray-600 mt-2">Progress: {(progress * 100).toFixed(0)}%</p>
+          <p className="text-sm text-gray-600 mt-2">Progress: {(ocrProgress * 100).toFixed(0)}%</p>
         </div>
       )}
 
-      {result && (
+      {ocrResult && (
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-teal-600">Extracted Text:</h2>
           <p className="mt-2 p-4 bg-gray-100 rounded-lg text-gray-700">
-            {result}
+            {ocrResult}
           </p>
         </div>
       )}
