@@ -31,6 +31,32 @@ const FoodInfo = () => {
   const [cropping, setCropping] = useState(false);
   const cropperRef = useRef(null);
 
+  // for ocr extracted fonts checkboxes
+  // OCR matching results
+  const [ocrNumericMatches, setOcrNumericMatches] = useState([]);   // [{ scannedCode, matchedCode, name }]
+  const [ocrTextMatches, setOcrTextMatches] = useState([]);         // [{ matchedCode, name, score, overlapTokens }]
+  const [ocrUnmatchedCodes, setOcrUnmatchedCodes] = useState([]);   // [number]
+
+  const toggleCodeInSelected = (code, name) => {
+    setSelectedData((prev) => {
+      const exists = prev.some((item) => item.value === code);
+      if (exists) {
+        // remove from selectedData
+        return prev.filter((item) => item.value !== code);
+      }
+      // add to selectedData
+      return [
+        ...prev,
+        {
+          value: code,
+          label: name,
+          url: `${urlInsEachStart}${code}.json`,
+        },
+      ];
+    });
+  };
+
+
   const ocrProcessText = (extractedText) => {
     // Keep original text for display
     setOcrResult(extractedText);
@@ -44,15 +70,13 @@ const FoodInfo = () => {
     // 1) NUMERIC MATCHING (EXACT ONLY)
     // =========
 
-    // Find all 2–3 digit numeric codes in the extracted text (e.g. 86, 320)
     const codeMatches = extractedText.match(/\b(\d{2,3})\b/g) || [];
     const uniqueCodes = [...new Set(codeMatches.map((c) => parseInt(c, 10)))];
 
-    // Build a lookup from numeric code → list of dict items (E320, INS320, etc.)
     const numericLookup = new Map();
 
     fetchedListData.forEach((item) => {
-      const match = item.code.match(/(\d+)/); // pull out "100" from "E100ii", "INS100", etc.
+      const match = item.code.match(/(\d+)/);
       if (!match) return;
 
       const num = parseInt(match[1], 10);
@@ -65,7 +89,6 @@ const FoodInfo = () => {
     const matchedItems = [];
     const unmatchedCodes = [];
 
-    // Exact matching only – no fuzzy numeric logic
     uniqueCodes.forEach((codeNum) => {
       const items = numericLookup.get(codeNum);
       if (items && items.length > 0) {
@@ -88,23 +111,19 @@ const FoodInfo = () => {
     const normalize = (s) =>
       s
         .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, " ") // remove punctuation etc.
+        .replace(/[^a-z0-9\s]/g, " ")
         .replace(/\s+/g, " ")
         .trim();
 
     const normalizedText = normalize(extractedText);
     const textTokens = new Set(normalizedText.split(" ").filter(Boolean));
 
-    // Codes already matched via numbers
     const numericMatchedCodes = new Set(matchedItems.map((m) => m.matchedCode));
-
     const textMatchedItems = [];
 
     fetchedListData.forEach((item) => {
-      // OPTIONAL: skip items that already matched numerically
       if (numericMatchedCodes.has(item.code)) return;
 
-      // Use the part after the first "-" as the "name", if present
       const namePart = item.name.split("-").slice(1).join("-") || item.name;
       const normName = normalize(namePart);
       if (!normName) return;
@@ -120,9 +139,6 @@ const FoodInfo = () => {
       const tokenScore = overlapCount / nameTokens.length;
       const substringMatch = normalizedText.includes(normName);
 
-      // Heuristic:
-      // - strong substring match, OR
-      // - at least 2 overlapping tokens and ≥ 0.5 of the name’s tokens appear in text
       if (substringMatch || (overlapCount >= 2 && tokenScore >= 0.5)) {
         textMatchedItems.push({
           matchedCode: item.code,
@@ -133,30 +149,28 @@ const FoodInfo = () => {
       }
     });
 
-    // =========
-    // 3) LOG OUTPUTS
-    // =========
+    setOcrNumericMatches(matchedItems);
+    setOcrUnmatchedCodes(unmatchedCodes);
+    setOcrTextMatches(textMatchedItems);
 
     console.log("OCR extracted text:", extractedText);
     console.log("Detected numeric codes:", uniqueCodes);
     console.log("Matched ingredients (by numeric code):", matchedItems);
-    console.log("Unmatched numeric codes (no exact E/INS code found):", unmatchedCodes);
-    console.log("Text-based ingredient suggestions (separate from numeric):", textMatchedItems);
-
-    // =========
-    // 4) OPTIONAL: auto-select numeric matches in your UI
-    // =========
-    // setSelectedData(
-    //   matchedItems.map((m) => ({
-    //     value: m.matchedCode,
-    //     label: m.name,
-    //     url: `${urlInsEachStart}${m.matchedCode}.json`,
-    //   }))
-    // );
+    console.log("Unmatched numeric codes:", unmatchedCodes);
+    console.log("Text-based ingredient suggestions:", textMatchedItems);
   };
 
+  const toggleNumericMatch = (code) => {
+    setCheckedOcrNumeric((prev) =>
+      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
+    );
+  };
 
-
+  const toggleTextMatch = (code) => {
+    setCheckedOcrText((prev) =>
+      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
+    );
+  };
 
   const ocrProcessImage = (file) => {
     if (!file) {
@@ -329,6 +343,75 @@ const FoodInfo = () => {
               )}
             </div>
           )}
+
+          {ocrNumericMatches.length > 0 && (
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-2">INS code-based suggestions</h3>
+              <div className="flex flex-col gap-1">
+                {ocrNumericMatches.map((m) => (
+                  <label
+                    key={`num-${m.matchedCode}-${m.scannedCode}`}
+                    className="label cursor-pointer justify-start gap-2"
+                  >
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-sm"
+                      checked={selectedData.some(
+                        (item) => item.value === m.matchedCode
+                      )}
+                      onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
+                    />
+                    <span className="label-text">
+                      {m.matchedCode} — {m.name}
+                      <span className="ml-1 text-xs text-gray-500">
+                        (from {m.scannedCode})
+                      </span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+
+          {ocrTextMatches.length > 0 && (
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-2">Text-based suggestions</h3>
+              <div className="flex flex-col gap-1">
+                {ocrTextMatches.map((m) => (
+                  <label
+                    key={`txt-${m.matchedCode}`}
+                    className="label cursor-pointer justify-start gap-2"
+                  >
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-sm"
+                      checked={selectedData.some(
+                        (item) => item.value === m.matchedCode
+                      )}
+                      onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
+                    />
+                    <span className="label-text">
+                      {m.matchedCode} — {m.name}
+                      {m.overlapTokens && m.overlapTokens.length > 0 && (
+                        <span className="ml-1 text-xs text-gray-500">
+                          (matched words: {m.overlapTokens.join(", ")})
+                        </span>
+                      )}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {ocrUnmatchedCodes.length > 0 && (
+            <p className="mt-4 text-xs text-gray-500">
+              Unmatched numeric codes: {ocrUnmatchedCodes.join(", ")}
+            </p>
+          )}
+
+
         </>
 
         {/* OCR (Crop)  */}
@@ -379,9 +462,12 @@ const FoodInfo = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center text-gray-500">Select items to view details</div>
+            <div className="text-center text-gray-500">
+              Select items from the list or OCR suggestions to view details
+            </div>
           )}
         </div>
+
       </div>
     </>
   );
