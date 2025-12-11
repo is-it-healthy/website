@@ -160,18 +160,6 @@ const FoodInfo = () => {
     console.log("Text-based ingredient suggestions:", textMatchedItems);
   };
 
-  const toggleNumericMatch = (code) => {
-    setCheckedOcrNumeric((prev) =>
-      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
-    );
-  };
-
-  const toggleTextMatch = (code) => {
-    setCheckedOcrText((prev) =>
-      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
-    );
-  };
-
   const ocrProcessImage = (file) => {
     if (!file) {
       setOcrError("No image file selected.");
