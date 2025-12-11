@@ -60,6 +60,7 @@ const FoodInfo = () => {
   const ocrProcessText = (extractedText) => {
     // Keep original text for display
     setOcrResult(extractedText);
+    setOcrProgress(0);
 
     if (!fetchedListData || fetchedListData.length === 0) {
       console.warn("No fetchedListData available for OCR matching.");
