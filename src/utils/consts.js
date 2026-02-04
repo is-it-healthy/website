@@ -27,13 +27,13 @@ For styles dropdown menus (<Select>)
 export const reactSelectCustomOptions = {
   control: (base, state) => ({
     ...base,
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    border: state.isFocused ? "1px solid #A855F7" : "1px solid #E9D5FF",
+    backgroundColor: "rgba(8, 8, 12, 0.9)",
+    border: state.isFocused ? "1px solid #A855F7" : "1px solid rgba(168, 85, 247, 0.35)",
     borderRadius: "0.75rem",
-    boxShadow: state.isFocused ? "0 0 0 3px rgba(168, 85, 247, 0.15)" : "0 8px 20px rgba(168, 85, 247, 0.08)",
+    boxShadow: state.isFocused ? "0 0 0 3px rgba(168, 85, 247, 0.2)" : "0 10px 24px rgba(88, 28, 135, 0.4)",
     padding: "0.35rem 0.4rem",
     fontSize: "1rem",
-    color: "#374151", // text-gray-700
+    color: "#E2E8F0",
     minHeight: "52px",
     "&:hover": {
       borderColor: "#C084FC",
@@ -46,7 +46,7 @@ export const reactSelectCustomOptions = {
   }),
   input: (base) => ({
     ...base,
-    color: "#0F172A",
+    color: "#E2E8F0",
   }),
   placeholder: (base) => ({
     ...base,
@@ -54,26 +54,26 @@ export const reactSelectCustomOptions = {
   }),
   indicatorSeparator: (base) => ({
     ...base,
-    backgroundColor: "#E9D5FF",
+    backgroundColor: "rgba(168, 85, 247, 0.35)",
   }),
   clearIndicator: (base) => ({
     ...base,
-    color: "#A855F7",
+    color: "#C084FC",
     "&:hover": { color: "#7C3AED" },
   }),
   dropdownIndicator: (base) => ({
     ...base,
-    color: "#A855F7",
+    color: "#C084FC",
     "&:hover": {
       color: "#7C3AED",
     },
   }),
   menu: (base) => ({
     ...base,
-    backgroundColor: "white",
-    border: "1px solid #E9D5FF",
+    backgroundColor: "#0b0b10",
+    border: "1px solid rgba(168, 85, 247, 0.35)",
     borderRadius: "0.75rem",
-    boxShadow: "0 18px 40px rgba(168, 85, 247, 0.18)",
+    boxShadow: "0 24px 60px rgba(88, 28, 135, 0.6)",
     zIndex: 60,
     overflow: "hidden",
   }),
@@ -83,34 +83,34 @@ export const reactSelectCustomOptions = {
   }),
   option: (base, state) => ({
     ...base,
-    backgroundColor: state.isFocused ? "#FAF5FF" : "white",
-    color: state.isFocused ? "#6B21A8" : "#374151",
+    backgroundColor: state.isFocused ? "rgba(168, 85, 247, 0.18)" : "transparent",
+    color: state.isFocused ? "#E9D5FF" : "#E2E8F0",
     padding: "0.6rem 0.9rem",
     cursor: "pointer",
   }),
   multiValue: (base) => ({
     ...base,
-    backgroundColor: "#F3E8FF",
+    backgroundColor: "rgba(168, 85, 247, 0.2)",
     borderRadius: "999px",
     paddingLeft: "0.2rem",
   }),
   multiValueLabel: (base) => ({
     ...base,
-    color: "#6B21A8",
+    color: "#E9D5FF",
     fontWeight: 600,
     padding: "0.2rem 0.3rem",
   }),
   multiValueRemove: (base) => ({
     ...base,
-    color: "#A855F7",
+    color: "#C084FC",
     borderRadius: "999px",
     ":hover": {
-      backgroundColor: "#E9D5FF",
-      color: "#7C3AED",
+      backgroundColor: "rgba(168, 85, 247, 0.3)",
+      color: "#E9D5FF",
     },
   }),
   singleValue: (base) => ({
     ...base,
-    color: "#374151", // text-gray-700
+    color: "#E2E8F0",
   }),
 };

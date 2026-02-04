@@ -237,32 +237,32 @@ const FoodInfo = () => {
   return (
     <>
       <div className="container mx-auto px-4 lg:px-8 py-10">
-        <div className="relative mb-8 rounded-3xl border border-purple-100 bg-white p-6 shadow-xl shadow-purple-100/50 lg:p-10">
-          <div className="absolute right-10 top-8 hidden h-28 w-28 rounded-full bg-gradient-to-br from-purple-100 to-fuchsia-100 blur-2xl lg:block" />
+        <div className="relative mb-8 rounded-3xl border border-purple-900/40 bg-[#0b0b0f] p-6 shadow-2xl shadow-purple-900/30 lg:p-10">
+          <div className="absolute right-10 top-8 hidden h-28 w-28 rounded-full bg-gradient-to-br from-purple-600/30 to-fuchsia-500/20 blur-2xl lg:block" />
           <div className="relative">
-            <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-purple-700">
+            <span className="inline-flex items-center gap-2 rounded-full border border-purple-500/40 bg-purple-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-purple-200">
               Food Additives
             </span>
             <div className="mt-4 flex items-center gap-4">
-              <div className="hidden h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-500 text-white shadow-lg shadow-purple-200 lg:flex">
+              <div className="hidden h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-500 text-white shadow-lg shadow-purple-900/50 lg:flex">
                 <span className="text-lg font-semibold">IH</span>
               </div>
-              <h1 className="text-3xl font-semibold tracking-tight text-slate-900 lg:text-4xl">
+              <h1 className="text-3xl font-semibold tracking-tight text-slate-100 lg:text-4xl">
                 is it healthy?
               </h1>
             </div>
-            <p className="mt-3 max-w-2xl text-sm text-slate-600 lg:text-base">
+            <p className="mt-3 max-w-2xl text-sm text-slate-400 lg:text-base">
               Scan ingredient labels or pick additives manually to review safety notes,
               banned regions, and source links.
             </p>
-            <div className="mt-5 flex flex-wrap gap-3 text-xs font-medium text-slate-500">
-              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+            <div className="mt-5 flex flex-wrap gap-3 text-xs font-medium text-slate-400">
+              <span className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1">
                 OCR + Manual input
               </span>
-              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+              <span className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1">
                 Clear, source-backed details
               </span>
-              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+              <span className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1">
                 Built for quick checks
               </span>
             </div>
@@ -270,14 +270,14 @@ const FoodInfo = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="rounded-2xl border border-purple-100 bg-white/80 p-4 shadow-lg shadow-purple-100/70 backdrop-blur lg:p-6">
+        <div className="rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-4 shadow-xl shadow-purple-900/30 backdrop-blur lg:p-6">
           {fetchedListLoading ? (
             <div className="flex justify-center items-center py-6">
-              <span className="loading loading-spinner loading-lg text-purple-600"></span>
-              <span className="ml-2 text-sm text-slate-600">Loading options...</span>
+              <span className="loading loading-spinner loading-lg text-purple-400"></span>
+              <span className="ml-2 text-sm text-slate-400">Loading options...</span>
             </div>
           ) : fetchedListError ? (
-            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-600 shadow-sm">
+            <div className="rounded-xl border border-red-900/50 bg-red-950/60 p-4 text-sm text-red-300 shadow-sm">
               Error loading options: {fetchedListError}
             </div>
           ) : (
@@ -304,9 +304,9 @@ const FoodInfo = () => {
                   />
                 </div>
                 <button
-                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-200 transition hover:brightness-105 ${
+                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110 ${
                     ocrProgress > 0
-                      ? "pointer-events-none bg-slate-300"
+                      ? "pointer-events-none bg-slate-700"
                       : "bg-gradient-to-r from-purple-600 to-fuchsia-500"
                   }`}
                   onClick={() => fileInputRef.current?.click()}
@@ -316,7 +316,7 @@ const FoodInfo = () => {
                   Scan label
                 </button>
                 <button
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-200 bg-white px-4 py-3 text-sm font-semibold text-purple-700 shadow-sm transition hover:border-purple-300 hover:bg-purple-50"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-800/40 bg-slate-900 px-4 py-3 text-sm font-semibold text-purple-200 shadow-sm transition hover:border-purple-600/60 hover:bg-slate-800"
                   onClick={clearEverything}
                 >
                   <X className="h-5 w-5" />
@@ -353,10 +353,10 @@ const FoodInfo = () => {
           />
 
           {(ocrError || ocrProgress > 0 || ocrResult) && (
-            <div className="my-10 rounded-2xl border border-purple-100 bg-white/90 p-6 shadow-lg shadow-purple-100/60 backdrop-blur">
+            <div className="my-10 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-6 shadow-xl shadow-purple-900/30 backdrop-blur">
               {/* Error */}
               {ocrError && (
-                <div className="text-red-600 text-sm mt-4">
+                <div className="text-red-300 text-sm mt-4">
                   <strong>Error: </strong>{ocrError}
                 </div>
               )}
@@ -365,11 +365,11 @@ const FoodInfo = () => {
               {ocrProgress > 0 && (
                 <div className="mt-4">
                   <progress
-                    className="progress progress-primary w-full"
+                    className="progress progress-secondary w-full"
                     value={ocrProgress}
                     max="1"
                   />
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-sm text-slate-400 mt-2">
                     Processing: {(ocrProgress * 100).toFixed(0)}%
                   </p>
                 </div>
@@ -378,8 +378,8 @@ const FoodInfo = () => {
               {/* Result */}
               {ocrResult && (
                 <div className="mt-6">
-                  <h2 className="text-xl font-semibold text-purple-700">Extracted Text</h2>
-                  <div className="mt-2 p-4 rounded-lg border border-purple-100 bg-white text-gray-700 shadow-sm whitespace-pre-line">
+                  <h2 className="text-xl font-semibold text-purple-200">Extracted Text</h2>
+                  <div className="mt-2 p-4 rounded-lg border border-purple-900/40 bg-black/40 text-slate-200 shadow-sm whitespace-pre-line">
                     {ocrResult}
                   </div>
                 </div>
@@ -388,23 +388,23 @@ const FoodInfo = () => {
           )}
 
           {ocrNumericMatches.length > 0 && (
-            <div className="mt-6 rounded-2xl border border-purple-100 bg-white/90 p-5 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900 mb-3">INS code-based suggestions</h3>
+            <div className="mt-6 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-100 mb-3">INS code-based suggestions</h3>
               <div className="flex flex-col gap-2">
                 {ocrNumericMatches.map((m) => (
                   <label
                     key={`num-${m.matchedCode}-${m.scannedCode}`}
-                    className="flex items-center gap-3 rounded-lg border border-purple-100 bg-white px-3 py-2 shadow-sm transition hover:border-purple-200"
+                    className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/50 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
                   >
                     <input
                       type="checkbox"
-                      className="checkbox checkbox-sm checkbox-primary"
+                      className="checkbox checkbox-sm checkbox-secondary"
                       checked={selectedData.some(
                         (item) => item.value === m.matchedCode
                       )}
                       onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
                     />
-                    <span className="text-sm text-slate-700">
+                    <span className="text-sm text-slate-200">
                       {m.matchedCode} — {m.name}
                       <span className="ml-1 text-xs text-slate-500">
                         (from {m.scannedCode})
@@ -418,23 +418,23 @@ const FoodInfo = () => {
 
 
           {ocrTextMatches.length > 0 && (
-            <div className="mt-6 rounded-2xl border border-purple-100 bg-white/90 p-5 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900 mb-3">Text-based suggestions</h3>
+            <div className="mt-6 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-100 mb-3">Text-based suggestions</h3>
               <div className="flex flex-col gap-2">
                 {ocrTextMatches.map((m) => (
                   <label
                     key={`txt-${m.matchedCode}`}
-                    className="flex items-center gap-3 rounded-lg border border-purple-100 bg-white px-3 py-2 shadow-sm transition hover:border-purple-200"
+                    className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/50 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
                   >
                     <input
                       type="checkbox"
-                      className="checkbox checkbox-sm checkbox-primary"
+                      className="checkbox checkbox-sm checkbox-secondary"
                       checked={selectedData.some(
                         (item) => item.value === m.matchedCode
                       )}
                       onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
                     />
-                    <span className="text-sm text-slate-700">
+                    <span className="text-sm text-slate-200">
                       {m.matchedCode} — {m.name}
                       <span className="ml-1 text-xs text-slate-500">
                         (
@@ -461,7 +461,7 @@ const FoodInfo = () => {
 
         {/* OCR (Crop)  */}
         {cropping && cropSource && (
-          <div className="my-10 rounded-2xl border border-purple-100 bg-white/90 p-4 shadow-lg shadow-purple-100/60">
+          <div className="my-10 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-4 shadow-lg shadow-purple-900/40">
             <div className="relative w-full h-80">
               <Cropper
                 ref={cropperRef}
@@ -479,7 +479,7 @@ const FoodInfo = () => {
 
             <div className="flex justify-center gap-2 mt-4">
               <button
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-200 bg-white px-4 py-2 text-sm font-semibold text-purple-700 shadow-sm transition hover:border-purple-300 hover:bg-purple-50"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-800/40 bg-slate-900 px-4 py-2 text-sm font-semibold text-purple-200 shadow-sm transition hover:border-purple-600/60 hover:bg-slate-800"
                 onClick={() => {
                   setCropping(false);
                   URL.revokeObjectURL(cropSource);
@@ -490,7 +490,7 @@ const FoodInfo = () => {
                 Cancel
               </button>
               <button
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-200 transition hover:brightness-105"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110"
                 onClick={handleConfirmCrop}
               >
                 <Check className="h-4 w-4" />
@@ -503,9 +503,9 @@ const FoodInfo = () => {
         {/* Results */}
         <div className="mt-12">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-slate-900">Selected Additives</h2>
+            <h2 className="text-xl font-semibold text-slate-100">Selected Additives</h2>
             {selectedData.length > 0 && (
-              <span className="text-xs font-medium text-purple-700">
+              <span className="text-xs font-medium text-purple-200">
                 {selectedData.length} selected
               </span>
             )}
@@ -517,7 +517,7 @@ const FoodInfo = () => {
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl border border-dashed border-purple-200 bg-white/80 p-8 text-center text-sm text-slate-500">
+            <div className="rounded-2xl border border-dashed border-purple-900/50 bg-[#0f0f14] p-8 text-center text-sm text-slate-500">
               Select items from the list or OCR suggestions to view details
             </div>
           )}
