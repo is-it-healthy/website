@@ -377,12 +377,15 @@ const FoodInfo = () => {
 
               {/* Result */}
               {ocrResult && (
-                <div className="mt-6">
-                  <h2 className="text-xl font-semibold text-purple-200">Extracted Text</h2>
-                  <div className="mt-2 p-4 rounded-lg border border-purple-900/40 bg-black/40 text-slate-200 shadow-sm whitespace-pre-line">
+                <details className="mt-6 rounded-xl border border-purple-900/40 bg-black/40" open={false}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-slate-200">
+                    Extracted Text
+                    <span className="text-xs font-medium text-purple-300">Show</span>
+                  </summary>
+                  <div className="border-t border-purple-900/40 px-4 py-3 text-sm text-slate-200 whitespace-pre-line">
                     {ocrResult}
                   </div>
-                </div>
+                </details>
               )}
             </div>
           )}
