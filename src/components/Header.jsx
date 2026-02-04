@@ -34,9 +34,6 @@ const Header = () => {
 						</details>
 					</div>
 					<div className="flex items-center gap-2">
-						<span className="hidden h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-500 text-xs font-semibold text-white shadow-lg shadow-purple-900/40 lg:flex">
-							IH
-						</span>
 						<span className="text-lg font-semibold text-slate-100">is it healthy?</span>
 					</div>
 					<div className="flex items-center gap-2">

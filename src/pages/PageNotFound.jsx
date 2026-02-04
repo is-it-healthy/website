@@ -1,5 +1,5 @@
+import { House, Search } from "lucide-react";
 import { useEffect } from "react";
-import { ArrowLeft } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 const PageNotFound = () => {
@@ -24,22 +24,23 @@ const PageNotFound = () => {
                 Page not found
               </h1>
               <p className="mt-4 max-w-xl text-sm text-slate-400 lg:text-base">
-                The page you requested doesn’t exist or may have been moved. Check the URL,
+                The page you requested doesn't exist or may have been moved. Check the URL,
                 or head back to the home page to continue exploring additives.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  to="/"
+                  to="/app"
                   className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
                 >
-                  <ArrowLeft className="text-base" />
-                  Back to home
+                  <Search className="text-base" />
+                  Lookup
                 </Link>
                 <a
                   href="mailto:support@isithealthy.app"
                   className="inline-flex items-center gap-2 rounded-xl border border-purple-800/50 bg-black/40 px-4 py-2 text-sm font-semibold text-purple-200 transition-all duration-300 hover:scale-[1.02] hover:border-purple-600/70 hover:bg-purple-900/20 hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
                 >
-                  Contact support
+                  <House className="text-base" />
+                  Back to home
                 </a>
               </div>
             </div>
