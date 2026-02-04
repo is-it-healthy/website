@@ -1,4 +1,5 @@
 import { List, ExclamationTriangle, QuestionCircle, People, FileEarmarkArrowUp, CodeSlash, Journals, Book } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 const Header = () => {
 
 	return (
@@ -11,25 +12,25 @@ const Header = () => {
 								<List className="text-xl" />
 							</summary>
 							<div className="absolute left-0 mt-3 w-56 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-2 shadow-xl shadow-purple-900/30">
-								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="#">
+								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/help">
 									<QuestionCircle className="text-lg" />Help & Support
-								</a>
-								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="#">
+								</Link>
+								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/help">
 									<ExclamationTriangle className="text-lg" />How it works?
-								</a>
-								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="#">
+								</Link>
+								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/license">
 									<Book className="text-lg" />License
-								</a>
-								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="#">
-									<Journals className="text-lg" />Open Source Licenses
-								</a>
-								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="#">
+								</Link>
+								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/legal">
+									<Journals className="text-lg" />Legal
+								</Link>
+								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="https://github.com" target="_blank" rel="noreferrer">
 									<CodeSlash className="text-lg" />Contribute Code
 								</a>
-								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="#">
+								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="https://github.com" target="_blank" rel="noreferrer">
 									<FileEarmarkArrowUp className="text-lg" />Contribute Data
 								</a>
-								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="#">
+								<a className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" href="https://github.com" target="_blank" rel="noreferrer">
 									<People className="text-lg" />Contributors
 								</a>
 							</div>
@@ -42,12 +43,12 @@ const Header = () => {
 						<span className="text-lg font-semibold text-slate-100">is it healthy?</span>
 					</div>
 					<div className="flex items-center gap-2">
-						<button className="flex h-10 w-10 items-center justify-center rounded-full text-purple-300 transition hover:bg-purple-900/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60">
+						<Link className="flex h-10 w-10 items-center justify-center rounded-full text-purple-300 transition hover:bg-purple-900/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60" to="/help">
 							<QuestionCircle className="text-xl" />
-						</button>
-						<button className="flex h-10 w-10 items-center justify-center rounded-full text-purple-300 transition hover:bg-purple-900/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60">
+						</Link>
+						<Link className="flex h-10 w-10 items-center justify-center rounded-full text-purple-300 transition hover:bg-purple-900/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60" to="/help">
 							<ExclamationTriangle className="text-xl" />
-						</button>
+						</Link>
 					</div>
 				</div>
 			</header>
