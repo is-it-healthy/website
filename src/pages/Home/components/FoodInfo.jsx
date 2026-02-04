@@ -352,8 +352,18 @@ const FoodInfo = () => {
             }}
           />
 
-          {(ocrError || ocrProgress > 0 || ocrResult) && (
+          {(ocrError ||
+            ocrProgress > 0 ||
+            ocrResult ||
+            ocrNumericMatches.length > 0 ||
+            ocrTextMatches.length > 0 ||
+            ocrUnmatchedCodes.length > 0) && (
             <div className="my-10 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-6 shadow-xl shadow-purple-900/30 backdrop-blur">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-slate-100">OCR Scan Results</h3>
+                <span className="text-xs font-medium text-purple-300">Camera / OCR</span>
+              </div>
+
               {/* Error */}
               {ocrError && (
                 <div className="text-red-300 text-sm mt-4">
@@ -375,9 +385,9 @@ const FoodInfo = () => {
                 </div>
               )}
 
-              {/* Result */}
+              {/* Extracted Text */}
               {ocrResult && (
-                <details className="mt-6 rounded-xl border border-purple-900/40 bg-black/40" open={false}>
+                <details className="mt-5 rounded-xl border border-purple-900/40 bg-black/40" open={false}>
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-slate-200">
                     Extracted Text
                     <span className="text-xs font-medium text-purple-300">Show</span>
@@ -387,77 +397,79 @@ const FoodInfo = () => {
                   </div>
                 </details>
               )}
-            </div>
-          )}
 
-          {ocrNumericMatches.length > 0 && (
-            <div className="mt-6 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-5 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-100 mb-3">INS code-based suggestions</h3>
-              <div className="flex flex-col gap-2">
-                {ocrNumericMatches.map((m) => (
-                  <label
-                    key={`num-${m.matchedCode}-${m.scannedCode}`}
-                    className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/50 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
-                  >
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-sm checkbox-secondary"
-                      checked={selectedData.some(
-                        (item) => item.value === m.matchedCode
-                      )}
-                      onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
-                    />
-                    <span className="text-sm text-slate-200">
-                      {m.matchedCode} — {m.name}
-                      <span className="ml-1 text-xs text-slate-500">
-                        (from {m.scannedCode})
-                      </span>
-                    </span>
-                  </label>
-                ))}
+              {/* Suggestions */}
+              <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                {ocrNumericMatches.length > 0 && (
+                  <div className="rounded-2xl border border-purple-900/40 bg-black/50 p-5 shadow-sm">
+                    <h4 className="text-sm font-semibold text-slate-100 mb-3">INS code-based suggestions</h4>
+                    <div className="flex flex-col gap-2">
+                      {ocrNumericMatches.map((m) => (
+                        <label
+                          key={`num-${m.matchedCode}-${m.scannedCode}`}
+                          className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/60 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
+                        >
+                          <input
+                            type="checkbox"
+                            className="checkbox checkbox-sm checkbox-secondary"
+                            checked={selectedData.some(
+                              (item) => item.value === m.matchedCode
+                            )}
+                            onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
+                          />
+                          <span className="text-sm text-slate-200">
+                            {m.matchedCode} — {m.name}
+                            <span className="ml-1 text-xs text-slate-500">
+                              (from {m.scannedCode})
+                            </span>
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {ocrTextMatches.length > 0 && (
+                  <div className="rounded-2xl border border-purple-900/40 bg-black/50 p-5 shadow-sm">
+                    <h4 className="text-sm font-semibold text-slate-100 mb-3">Text-based suggestions</h4>
+                    <div className="flex flex-col gap-2">
+                      {ocrTextMatches.map((m) => (
+                        <label
+                          key={`txt-${m.matchedCode}`}
+                          className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/60 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
+                        >
+                          <input
+                            type="checkbox"
+                            className="checkbox checkbox-sm checkbox-secondary"
+                            checked={selectedData.some(
+                              (item) => item.value === m.matchedCode
+                            )}
+                            onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
+                          />
+                          <span className="text-sm text-slate-200">
+                            {m.matchedCode} — {m.name}
+                            <span className="ml-1 text-xs text-slate-500">
+                              (
+                              {`${(m.score * 100).toFixed(0)}% match`}
+                              {m.overlapTokens && m.overlapTokens.length > 0 && (
+                                <>, matched words: {m.overlapTokens.join(", ")}·</>
+                              )}
+                              )
+                            </span>
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
+
+              {ocrUnmatchedCodes.length > 0 && (
+                <p className="mt-4 text-xs text-slate-500">
+                  Unmatched numeric codes: {ocrUnmatchedCodes.join(", ")}
+                </p>
+              )}
             </div>
-          )}
-
-
-          {ocrTextMatches.length > 0 && (
-            <div className="mt-6 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-5 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-100 mb-3">Text-based suggestions</h3>
-              <div className="flex flex-col gap-2">
-                {ocrTextMatches.map((m) => (
-                  <label
-                    key={`txt-${m.matchedCode}`}
-                    className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/50 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
-                  >
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-sm checkbox-secondary"
-                      checked={selectedData.some(
-                        (item) => item.value === m.matchedCode
-                      )}
-                      onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
-                    />
-                    <span className="text-sm text-slate-200">
-                      {m.matchedCode} — {m.name}
-                      <span className="ml-1 text-xs text-slate-500">
-                        (
-                        {`${(m.score * 100).toFixed(0)}% match`}
-                        {m.overlapTokens && m.overlapTokens.length > 0 && (
-                          <>, matched words: {m.overlapTokens.join(", ")}·</>
-                        )}
-                        )
-                      </span>
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {ocrUnmatchedCodes.length > 0 && (
-            <p className="mt-4 text-xs text-slate-500">
-              Unmatched numeric codes: {ocrUnmatchedCodes.join(", ")}
-            </p>
           )}
 
         </>
