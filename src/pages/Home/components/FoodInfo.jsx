@@ -236,25 +236,52 @@ const FoodInfo = () => {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4 lg:px-8 py-10">
+        <div className="relative mb-8 rounded-3xl border border-purple-100 bg-gradient-to-br from-white via-purple-50 to-fuchsia-50 p-6 lg:p-10 shadow-xl shadow-purple-100/60">
+          <div className="absolute right-6 top-6 hidden h-24 w-24 rounded-full bg-purple-200/50 blur-2xl lg:block" />
+          <div className="relative">
+            <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700">
+              Additives Explorer
+            </span>
+            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-4xl">
+              is it healthy?
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm text-slate-600 lg:text-base">
+              Scan or select food additives to get safety notes, banned regions,
+              and evidence-backed context. Designed to be quick, clear, and calm.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Scan ingredients", "Manual select", "Side effects", "Banned regions"].map(
+                (chip) => (
+                  <span
+                    key={chip}
+                    className="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-sm ring-1 ring-purple-100"
+                  >
+                    {chip}
+                  </span>
+                )
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* Search Bar */}
-        <div className="mt-6 lg:mt-10 mx-3 lg:mx-1">
+        <div className="rounded-2xl border border-purple-100 bg-white/80 p-4 shadow-lg shadow-purple-100/70 backdrop-blur lg:p-6">
           {fetchedListLoading ? (
-            <div className="flex justify-center items-center py-4">
-              <span className="loading loading-spinner loading-lg"></span>
-              <span className="ml-2">Loading options...</span>
+            <div className="flex justify-center items-center py-6">
+              <span className="loading loading-spinner loading-lg text-purple-600"></span>
+              <span className="ml-2 text-sm text-slate-600">Loading options...</span>
             </div>
           ) : fetchedListError ? (
-            <div className="alert alert-error shadow-lg">
-              <span>Error loading options: {fetchedListError}</span>
+            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-600 shadow-sm">
+              Error loading options: {fetchedListError}
             </div>
           ) : (
             <>
-              <div className="flex items-center gap-2 w-full">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4 w-full">
                 <div className="flex-1">
                   <Select
-                    className="shadow-xl text-lg"
+                    className="text-lg"
                     closeMenuOnSelect={false}
                     components={animatedComponents}
                     defaultValue={[]}
@@ -271,19 +298,23 @@ const FoodInfo = () => {
                   />
                 </div>
                 <button
-                  className={`btn btn-lg whitespace-nowrap ${ocrProgress > 0 ? "btn-disabled" : ""
-                    }`}
+                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-200 transition hover:brightness-105 ${
+                    ocrProgress > 0
+                      ? "pointer-events-none bg-slate-300"
+                      : "bg-gradient-to-r from-purple-600 to-fuchsia-500"
+                  }`}
                   onClick={() => fileInputRef.current?.click()}
                   disabled={ocrProgress > 0}
                 >
-                  <Camera />
+                  <Camera className="h-5 w-5" />
+                  Scan label
                 </button>
                 <button
-                  className={`btn btn-lg whitespace-nowrap ${ocrProgress > 0 ? "btn-disabled" : ""
-                    }`}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-200 bg-white px-4 py-3 text-sm font-semibold text-purple-700 shadow-sm transition hover:border-purple-300 hover:bg-purple-50"
                   onClick={clearEverything}
                 >
-                  <X />
+                  <X className="h-5 w-5" />
+                  Clear
                 </button>
               </div>
             </>
@@ -316,10 +347,10 @@ const FoodInfo = () => {
           />
 
           {(ocrError || ocrProgress > 0 || ocrResult) && (
-            <div className="my-16 mx-2 bg-base-200 rounded-xl p-6 shadow-lg">
+            <div className="my-10 rounded-2xl border border-purple-100 bg-white/90 p-6 shadow-lg shadow-purple-100/60 backdrop-blur">
               {/* Error */}
               {ocrError && (
-                <div className="text-red-500 text-sm mt-4">
+                <div className="text-red-600 text-sm mt-4">
                   <strong>Error: </strong>{ocrError}
                 </div>
               )}
@@ -328,7 +359,7 @@ const FoodInfo = () => {
               {ocrProgress > 0 && (
                 <div className="mt-4">
                   <progress
-                    className="progress progress-neutral w-full"
+                    className="progress progress-primary w-full"
                     value={ocrProgress}
                     max="1"
                   />
@@ -341,8 +372,8 @@ const FoodInfo = () => {
               {/* Result */}
               {ocrResult && (
                 <div className="mt-6">
-                  <h2 className="text-xl font-semibold text-primary">Extracted Text</h2>
-                  <div className="mt-2 p-4 bg-base-100 rounded-lg shadow-sm border border-base-300 text-gray-700 whitespace-pre-line">
+                  <h2 className="text-xl font-semibold text-purple-700">Extracted Text</h2>
+                  <div className="mt-2 p-4 rounded-lg border border-purple-100 bg-white text-gray-700 shadow-sm whitespace-pre-line">
                     {ocrResult}
                   </div>
                 </div>
@@ -351,25 +382,25 @@ const FoodInfo = () => {
           )}
 
           {ocrNumericMatches.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold mb-2">INS code-based suggestions</h3>
-              <div className="flex flex-col gap-1">
+            <div className="mt-6 rounded-2xl border border-purple-100 bg-white/90 p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900 mb-3">INS code-based suggestions</h3>
+              <div className="flex flex-col gap-2">
                 {ocrNumericMatches.map((m) => (
                   <label
                     key={`num-${m.matchedCode}-${m.scannedCode}`}
-                    className="label cursor-pointer justify-start gap-2"
+                    className="flex items-center gap-3 rounded-lg border border-purple-100 bg-white px-3 py-2 shadow-sm transition hover:border-purple-200"
                   >
                     <input
                       type="checkbox"
-                      className="checkbox checkbox-sm"
+                      className="checkbox checkbox-sm checkbox-primary"
                       checked={selectedData.some(
                         (item) => item.value === m.matchedCode
                       )}
                       onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
                     />
-                    <span className="label-text">
+                    <span className="text-sm text-slate-700">
                       {m.matchedCode} — {m.name}
-                      <span className="ml-1 text-xs text-gray-500">
+                      <span className="ml-1 text-xs text-slate-500">
                         (from {m.scannedCode})
                       </span>
                     </span>
@@ -381,25 +412,25 @@ const FoodInfo = () => {
 
 
           {ocrTextMatches.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold mb-2">Text-based suggestions</h3>
-              <div className="flex flex-col gap-1">
+            <div className="mt-6 rounded-2xl border border-purple-100 bg-white/90 p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900 mb-3">Text-based suggestions</h3>
+              <div className="flex flex-col gap-2">
                 {ocrTextMatches.map((m) => (
                   <label
                     key={`txt-${m.matchedCode}`}
-                    className="label cursor-pointer justify-start gap-2"
+                    className="flex items-center gap-3 rounded-lg border border-purple-100 bg-white px-3 py-2 shadow-sm transition hover:border-purple-200"
                   >
                     <input
                       type="checkbox"
-                      className="checkbox checkbox-sm"
+                      className="checkbox checkbox-sm checkbox-primary"
                       checked={selectedData.some(
                         (item) => item.value === m.matchedCode
                       )}
                       onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
                     />
-                    <span className="label-text">
+                    <span className="text-sm text-slate-700">
                       {m.matchedCode} — {m.name}
-                      <span className="ml-1 text-xs text-gray-500">
+                      <span className="ml-1 text-xs text-slate-500">
                         (
                         {`${(m.score * 100).toFixed(0)}% match`}
                         {m.overlapTokens && m.overlapTokens.length > 0 && (
@@ -415,7 +446,7 @@ const FoodInfo = () => {
           )}
 
           {ocrUnmatchedCodes.length > 0 && (
-            <p className="mt-4 text-xs text-gray-500">
+            <p className="mt-4 text-xs text-slate-500">
               Unmatched numeric codes: {ocrUnmatchedCodes.join(", ")}
             </p>
           )}
@@ -424,7 +455,7 @@ const FoodInfo = () => {
 
         {/* OCR (Crop)  */}
         {cropping && cropSource && (
-          <div className="my-16 mx-2 bg-base-200 rounded-xl p-4 shadow-lg">
+          <div className="my-10 rounded-2xl border border-purple-100 bg-white/90 p-4 shadow-lg shadow-purple-100/60">
             <div className="relative w-full h-80">
               <Cropper
                 ref={cropperRef}
@@ -442,35 +473,45 @@ const FoodInfo = () => {
 
             <div className="flex justify-center gap-2 mt-4">
               <button
-                className="btn btn-ghost"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-200 bg-white px-4 py-2 text-sm font-semibold text-purple-700 shadow-sm transition hover:border-purple-300 hover:bg-purple-50"
                 onClick={() => {
                   setCropping(false);
                   URL.revokeObjectURL(cropSource);
                   setCropSource(null);
                 }}
               >
-                <X />
+                <X className="h-4 w-4" />
+                Cancel
               </button>
               <button
-                className="btn btn-neutral"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-200 transition hover:brightness-105"
                 onClick={handleConfirmCrop}
               >
-                <Check /> Confirm
+                <Check className="h-4 w-4" />
+                Confirm
               </button>
             </div>
           </div>
         )}
 
         {/* Results */}
-        <div className="mt-10 mx-3">
+        <div className="mt-12">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-slate-900">Selected Additives</h2>
+            {selectedData.length > 0 && (
+              <span className="text-xs font-medium text-purple-700">
+                {selectedData.length} selected
+              </span>
+            )}
+          </div>
           {selectedData.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {selectedData.map((item) => (
                 <Card key={item.value} item={item} />
               ))}
             </div>
           ) : (
-            <div className="text-center text-gray-500">
+            <div className="rounded-2xl border border-dashed border-purple-200 bg-white/80 p-8 text-center text-sm text-slate-500">
               Select items from the list or OCR suggestions to view details
             </div>
           )}
