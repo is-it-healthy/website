@@ -126,6 +126,146 @@ const Landing = () => {
           </div>
         </div>
 
+        <section className="mt-20">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-widest text-purple-300">How it works</span>
+              <h2 className="mt-3 text-3xl font-semibold text-slate-100">From label to insights in minutes.</h2>
+              <p className="mt-4 text-sm text-slate-400">
+                Scan an ingredient list, review matches, and open details when you need them.
+                Every card links to sources so you can verify the data quickly.
+              </p>
+              <div className="mt-6 space-y-3 text-sm text-slate-300">
+                {[
+                  "Capture or upload a clear photo of the ingredients.",
+                  "Confirm OCR matches and add any missing additives.",
+                  "Open each additive for safety notes, bans, and sources.",
+                ].map((step, index) => (
+                  <div
+                    key={step}
+                    className="flex items-center gap-3 rounded-xl border border-purple-900/40 bg-black/40 px-4 py-3"
+                  >
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-900/40 text-xs font-semibold text-purple-200">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-3xl border border-purple-900/40 bg-[#0f0f14] p-8 shadow-2xl shadow-purple-900/30">
+              <div className="flex items-center justify-between text-xs text-purple-300">
+                <span>Workflow</span>
+                <span className="rounded-full border border-purple-800/50 bg-purple-900/30 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
+                  Quick scan
+                </span>
+              </div>
+              <div className="mt-6 space-y-4">
+                {[
+                  { title: "OCR detection", text: "Auto-detect INS codes and names." },
+                  { title: "Smart matching", text: "Reduce false positives with ranking." },
+                  { title: "Context view", text: "See functions, bans, and references." },
+                ].map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-2xl border border-purple-900/40 bg-black/50 p-4"
+                  >
+                    <div className="text-sm font-semibold text-slate-100">{item.title}</div>
+                    <div className="mt-2 text-xs text-slate-400">{item.text}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <div className="rounded-3xl border border-purple-900/40 bg-[#0f0f14] p-8 shadow-2xl shadow-purple-900/30">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-widest text-purple-300">Why teams use it</span>
+                <h2 className="mt-3 text-3xl font-semibold text-slate-100">Professional-grade clarity.</h2>
+                <p className="mt-4 max-w-2xl text-sm text-slate-400">
+                  Built for researchers, nutrition professionals, and curious shoppers who want
+                  fast answers and transparent sourcing.
+                </p>
+              </div>
+              <Link
+                to="/app"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110"
+              >
+                Start analyzing
+              </Link>
+            </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { title: "Evidence-first", text: "See references and bans for every additive." },
+                { title: "Fast decisioning", text: "Find risk and function at a glance." },
+                { title: "Designed for focus", text: "Calm, dark UI with sharp contrast." },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-purple-900/40 bg-black/50 p-5"
+                >
+                  <div className="text-sm font-semibold text-slate-100">{item.title}</div>
+                  <div className="mt-2 text-xs text-slate-400">{item.text}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="rounded-3xl border border-purple-900/40 bg-[#0f0f14] p-8 shadow-2xl shadow-purple-900/30">
+            <h3 className="text-2xl font-semibold text-slate-100">Frequently asked</h3>
+            <div className="mt-6 space-y-3">
+              {[
+                {
+                  q: "Where does the data come from?",
+                  a: "We aggregate structured additive data and attach source links for verification.",
+                },
+                {
+                  q: "Is OCR accurate?",
+                  a: "OCR works best on clear, well-lit labels. You can always add items manually.",
+                },
+                {
+                  q: "Can I trust the recommendations?",
+                  a: "We focus on neutrality and present evidence so you can decide.",
+                },
+              ].map((item) => (
+                <details
+                  key={item.q}
+                  className="rounded-2xl border border-purple-900/40 bg-black/50 px-4 py-3"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-200">
+                    {item.q}
+                    <span className="text-xs text-purple-300">+</span>
+                  </summary>
+                  <p className="mt-3 text-xs text-slate-400">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-3xl border border-purple-900/40 bg-black/60 p-8 shadow-2xl shadow-purple-900/30">
+            <span className="text-xs font-semibold uppercase tracking-widest text-purple-300">Get started</span>
+            <h3 className="mt-3 text-2xl font-semibold text-slate-100">
+              Ready to scan your first label?
+            </h3>
+            <p className="mt-3 text-sm text-slate-400">
+              Open the app, upload a photo, and get instant additive insights.
+            </p>
+            <Link
+              to="/app"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110"
+            >
+              Launch scanner
+            </Link>
+            <p className="mt-3 text-xs text-slate-500">
+              No signup required. Privacy-first OCR flow.
+            </p>
+          </div>
+        </section>
+
         <div className="mt-16 flex flex-col gap-4 border-t border-purple-900/40 pt-8 text-xs text-slate-500 lg:flex-row lg:items-center lg:justify-between">
           <span>Designed for quick, evidence-based ingredient checks.</span>
           <div className="flex gap-4">
