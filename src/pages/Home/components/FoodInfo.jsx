@@ -37,6 +37,16 @@ const FoodInfo = () => {
   const [ocrTextMatches, setOcrTextMatches] = useState([]);         // [{ matchedCode, name, score, overlapTokens }]
   const [ocrUnmatchedCodes, setOcrUnmatchedCodes] = useState([]);   // [number]
 
+  const clearEverything = () => {
+    setSelectedData([]);
+    setOcrResult("");
+    setOcrProgress(0);
+    setOcrError("");
+    setOcrNumericMatches([]);
+    setOcrTextMatches([]);
+    setOcrUnmatchedCodes([]);
+  }
+
   const toggleCodeInSelected = (code, name) => {
     setSelectedData((prev) => {
       const exists = prev.some((item) => item.value === code);
@@ -267,6 +277,13 @@ const FoodInfo = () => {
                   disabled={ocrProgress > 0}
                 >
                   <Camera />
+                </button>
+                <button
+                  className={`btn btn-lg whitespace-nowrap ${ocrProgress > 0 ? "btn-disabled" : ""
+                    }`}
+                  onClick={clearEverything}
+                >
+                  <X />
                 </button>
               </div>
             </>
