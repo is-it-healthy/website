@@ -27,45 +27,90 @@ For styles dropdown menus (<Select>)
 export const reactSelectCustomOptions = {
   control: (base, state) => ({
     ...base,
-    backgroundColor: "white",
-    border: state.isFocused ? "2px solid #3B82F6" : "1px solid #D1D5DB",
-    borderRadius: "0.375rem", // DaisyUI's rounded-md
-    boxShadow: state.isFocused ? "0 0 0 2px #93C5FD" : "none",
-    padding: "0.25rem",
+    backgroundColor: "rgba(8, 8, 12, 0.9)",
+    border: state.isFocused ? "1px solid #A855F7" : "1px solid rgba(168, 85, 247, 0.35)",
+    borderRadius: "0.75rem",
+    boxShadow: state.isFocused ? "0 0 0 3px rgba(168, 85, 247, 0.2)" : "0 10px 24px rgba(88, 28, 135, 0.4)",
+    padding: "0.35rem 0.4rem",
     fontSize: "1rem",
-    color: "#374151", // text-gray-700
+    color: "#E2E8F0",
+    minHeight: "52px",
     "&:hover": {
-      borderColor: "#3B82F6", // hover:border-blue-500
+      borderColor: "#C084FC",
     },
+  }),
+  valueContainer: (base) => ({
+    ...base,
+    padding: "0 0.5rem",
+    gap: "0.35rem",
+  }),
+  input: (base) => ({
+    ...base,
+    color: "#E2E8F0",
   }),
   placeholder: (base) => ({
     ...base,
-    color: "#9CA3AF", // text-gray-400
+    color: "#94A3B8",
+  }),
+  indicatorSeparator: (base) => ({
+    ...base,
+    backgroundColor: "rgba(168, 85, 247, 0.35)",
+  }),
+  clearIndicator: (base) => ({
+    ...base,
+    color: "#C084FC",
+    "&:hover": { color: "#7C3AED" },
   }),
   dropdownIndicator: (base) => ({
     ...base,
-    color: "#9CA3AF",
+    color: "#C084FC",
     "&:hover": {
-      color: "#3B82F6", // hover:border-blue-500
+      color: "#7C3AED",
     },
   }),
   menu: (base) => ({
     ...base,
-    backgroundColor: "white",
-    border: "1px solid #D1D5DB", // border-gray-300
-    borderRadius: "0.375rem",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // subtle shadow
-    zIndex: 10,
+    backgroundColor: "#0b0b10",
+    border: "1px solid rgba(168, 85, 247, 0.35)",
+    borderRadius: "0.75rem",
+    boxShadow: "0 24px 60px rgba(88, 28, 135, 0.6)",
+    zIndex: 60,
+    overflow: "hidden",
+  }),
+  menuPortal: (base) => ({
+    ...base,
+    zIndex: 60,
   }),
   option: (base, state) => ({
     ...base,
-    backgroundColor: state.isFocused ? "#EFF6FF" : "white", // focus:bg-blue-100
-    color: state.isFocused ? "#1E3A8A" : "#374151", // text-blue-900 or text-gray-700
-    padding: "0.5rem 1rem",
+    backgroundColor: state.isFocused ? "rgba(168, 85, 247, 0.18)" : "transparent",
+    color: state.isFocused ? "#E9D5FF" : "#E2E8F0",
+    padding: "0.6rem 0.9rem",
     cursor: "pointer",
+  }),
+  multiValue: (base) => ({
+    ...base,
+    backgroundColor: "rgba(168, 85, 247, 0.2)",
+    borderRadius: "999px",
+    paddingLeft: "0.2rem",
+  }),
+  multiValueLabel: (base) => ({
+    ...base,
+    color: "#E9D5FF",
+    fontWeight: 600,
+    padding: "0.2rem 0.3rem",
+  }),
+  multiValueRemove: (base) => ({
+    ...base,
+    color: "#C084FC",
+    borderRadius: "999px",
+    ":hover": {
+      backgroundColor: "rgba(168, 85, 247, 0.3)",
+      color: "#E9D5FF",
+    },
   }),
   singleValue: (base) => ({
     ...base,
-    color: "#374151", // text-gray-700
+    color: "#E2E8F0",
   }),
 };
