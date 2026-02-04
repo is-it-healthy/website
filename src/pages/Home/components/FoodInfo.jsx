@@ -237,30 +237,34 @@ const FoodInfo = () => {
   return (
     <>
       <div className="container mx-auto px-4 lg:px-8 py-10">
-        <div className="relative mb-8 rounded-3xl border border-purple-100 bg-gradient-to-br from-white via-purple-50 to-fuchsia-50 p-6 lg:p-10 shadow-xl shadow-purple-100/60">
-          <div className="absolute right-6 top-6 hidden h-24 w-24 rounded-full bg-purple-200/50 blur-2xl lg:block" />
+        <div className="relative mb-8 rounded-3xl border border-purple-100 bg-white p-6 shadow-xl shadow-purple-100/50 lg:p-10">
+          <div className="absolute right-10 top-8 hidden h-28 w-28 rounded-full bg-gradient-to-br from-purple-100 to-fuchsia-100 blur-2xl lg:block" />
           <div className="relative">
-            <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700">
-              Additives Explorer
+            <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-purple-700">
+              Food Additives
             </span>
-            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-4xl">
-              is it healthy?
-            </h1>
+            <div className="mt-4 flex items-center gap-4">
+              <div className="hidden h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-500 text-white shadow-lg shadow-purple-200 lg:flex">
+                <span className="text-lg font-semibold">IH</span>
+              </div>
+              <h1 className="text-3xl font-semibold tracking-tight text-slate-900 lg:text-4xl">
+                is it healthy?
+              </h1>
+            </div>
             <p className="mt-3 max-w-2xl text-sm text-slate-600 lg:text-base">
-              Scan or select food additives to get safety notes, banned regions,
-              and evidence-backed context. Designed to be quick, clear, and calm.
+              Scan ingredient labels or pick additives manually to review safety notes,
+              banned regions, and source links.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["Scan ingredients", "Manual select", "Side effects", "Banned regions"].map(
-                (chip) => (
-                  <span
-                    key={chip}
-                    className="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-sm ring-1 ring-purple-100"
-                  >
-                    {chip}
-                  </span>
-                )
-              )}
+            <div className="mt-5 flex flex-wrap gap-3 text-xs font-medium text-slate-500">
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                OCR + Manual input
+              </span>
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                Clear, source-backed details
+              </span>
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                Built for quick checks
+              </span>
             </div>
           </div>
         </div>
