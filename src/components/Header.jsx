@@ -15,7 +15,7 @@ const Header = () => {
 								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/help">
 									<QuestionCircle className="text-lg" />Help & Support
 								</Link>
-								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/help">
+								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/how-it-works">
 									<ExclamationTriangle className="text-lg" />How it works?
 								</Link>
 								<Link className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-purple-900/30" to="/license">
