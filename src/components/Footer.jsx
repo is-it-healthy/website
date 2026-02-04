@@ -10,7 +10,7 @@ const Footer = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-purple-900/40 p-2 text-purple-300 shadow-sm transition hover:border-purple-700/60 hover:bg-purple-900/30"
+            className="rounded-full border border-purple-900/40 p-2 text-purple-300 shadow-sm transition-all duration-300 hover:scale-105 hover:border-purple-700/60 hover:bg-purple-900/30"
           >
             <BrowserChrome className="text-2xl" />
           </a>
@@ -18,7 +18,7 @@ const Footer = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-purple-900/40 p-2 text-purple-300 shadow-sm transition hover:border-purple-700/60 hover:bg-purple-900/30"
+            className="rounded-full border border-purple-900/40 p-2 text-purple-300 shadow-sm transition-all duration-300 hover:scale-105 hover:border-purple-700/60 hover:bg-purple-900/30"
           >
             <Github className="text-2xl" />
           </a>

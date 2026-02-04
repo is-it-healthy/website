@@ -304,7 +304,7 @@ const FoodInfo = () => {
                   />
                 </div>
                 <button
-                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110 ${
+                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70 ${
                     ocrProgress > 0
                       ? "pointer-events-none bg-slate-700"
                       : "bg-gradient-to-r from-purple-600 to-fuchsia-500"
@@ -316,7 +316,7 @@ const FoodInfo = () => {
                   Scan label
                 </button>
                 <button
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-800/40 bg-slate-900 px-4 py-3 text-sm font-semibold text-purple-200 shadow-sm transition hover:border-purple-600/60 hover:bg-slate-800"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-800/40 bg-slate-900 px-4 py-3 text-sm font-semibold text-purple-200 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-purple-600/60 hover:bg-slate-800 hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
                   onClick={clearEverything}
                 >
                   <X className="h-5 w-5" />
@@ -494,7 +494,7 @@ const FoodInfo = () => {
 
             <div className="flex justify-center gap-2 mt-4">
               <button
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-800/40 bg-slate-900 px-4 py-2 text-sm font-semibold text-purple-200 shadow-sm transition hover:border-purple-600/60 hover:bg-slate-800"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-800/40 bg-slate-900 px-4 py-2 text-sm font-semibold text-purple-200 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-purple-600/60 hover:bg-slate-800 hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
                 onClick={() => {
                   setCropping(false);
                   URL.revokeObjectURL(cropSource);
@@ -505,7 +505,7 @@ const FoodInfo = () => {
                 Cancel
               </button>
               <button
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
                 onClick={handleConfirmCrop}
               >
                 <Check className="h-4 w-4" />

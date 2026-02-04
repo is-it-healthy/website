@@ -29,14 +29,14 @@ const Landing = () => {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/app"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
               >
                 <Camera className="h-4 w-4" />
                 Open Scanner
               </Link>
               <Link
                 to="/app"
-                className="inline-flex items-center gap-2 rounded-xl border border-purple-800/50 bg-black/40 px-5 py-2.5 text-sm font-semibold text-purple-200 transition hover:border-purple-600/70 hover:bg-purple-900/20"
+                className="inline-flex items-center gap-2 rounded-xl border border-purple-800/50 bg-black/40 px-5 py-2.5 text-sm font-semibold text-purple-200 transition-all duration-300 hover:scale-[1.02] hover:border-purple-600/70 hover:bg-purple-900/20 hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
               >
                 Browse additives
               </Link>
@@ -67,7 +67,7 @@ const Landing = () => {
               ].map((card) => (
                 <div
                   key={card.title}
-                  className="rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-4 shadow-xl shadow-purple-900/20 transition hover:-translate-y-0.5 hover:border-purple-700/60"
+                  className="rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-4 shadow-xl shadow-purple-900/20 transition hover:border-purple-700/60"
                 >
                   <div className="flex items-center gap-2 text-sm font-semibold text-slate-100">
                     <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-900/30 text-purple-300">
@@ -192,7 +192,7 @@ const Landing = () => {
               </div>
               <Link
                 to="/app"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
               >
                 Start analyzing
               </Link>
@@ -256,7 +256,7 @@ const Landing = () => {
             </p>
             <Link
               to="/app"
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70"
             >
               Launch scanner
             </Link>
