@@ -286,6 +286,8 @@ const FoodInfo = () => {
                     components={animatedComponents}
                     defaultValue={[]}
                     isMulti
+                    menuPortalTarget={typeof document !== "undefined" ? document.body : null}
+                    menuPosition="fixed"
                     options={fetchedListData?.map((item) => ({
                       value: item.code,
                       label: item.name,
