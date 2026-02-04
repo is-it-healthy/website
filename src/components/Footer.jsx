@@ -3,6 +3,7 @@ import { Github, BrowserChrome } from "react-bootstrap-icons";
 const Footer = () => {
   return (
     <footer className="mt-0 border-t border-purple-900/40 bg-black py-6">
+      <div className="max-w-md mx-auto md:max-w-3xl lg:max-w-5xl">
       <div className="mx-4 lg:mx-8 flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
         <div className="flex gap-4">
           <a
@@ -26,6 +27,7 @@ const Footer = () => {
           2022 - {new Date().getFullYear()}{" "}
           <span className="font-semibold text-slate-200">&copy; Hirusha Adikari</span>
         </span>
+      </div>
       </div>
     </footer>
   );
