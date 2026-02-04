@@ -2,7 +2,7 @@ import { Github, BrowserChrome } from "react-bootstrap-icons";
 
 const Footer = () => {
   return (
-    <footer className="mt-12 border-t border-purple-900/40 bg-black/80 py-6 backdrop-blur">
+    <footer className="mt-0 border-t border-purple-900/40 bg-black py-6">
       <div className="mx-4 lg:mx-8 flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
         <div className="flex gap-4">
           <a

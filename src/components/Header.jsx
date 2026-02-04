@@ -3,7 +3,7 @@ const Header = () => {
 
 	return (
 		<>
-			<div className="navbar sticky top-0 z-20 border-b border-purple-900/40 bg-black/80 backdrop-blur">
+			<div className="navbar sticky top-0 z-20 border-b border-purple-900/40 bg-black">
 				<div className="navbar-start">
 					<div className="dropdown">
 						<div
