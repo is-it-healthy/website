@@ -237,37 +237,34 @@ const FoodInfo = () => {
   return (
     <>
       <div className="container mx-auto px-4 lg:px-8 py-10">
+
+        {/* Top Card */}
         <div className="relative mb-8 rounded-3xl border border-purple-900/40 bg-[#0b0b0f] p-6 shadow-2xl shadow-purple-900/30 lg:p-10">
           <div className="absolute right-10 top-8 hidden h-28 w-28 rounded-full bg-gradient-to-br from-purple-600/30 to-fuchsia-500/20 blur-2xl lg:block" />
-          <div className="relative">
-            <span className="inline-flex items-center gap-2 rounded-full border border-purple-500/40 bg-purple-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-purple-200">
-              Food Additives
-            </span>
-            <div className="mt-4 flex items-center gap-4">
-              <div className="hidden h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-500 text-white shadow-lg shadow-purple-900/50 lg:flex">
-                <span className="text-lg font-semibold">IH</span>
+          <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_auto]">
+            {/* Left column — content */}
+            <div>
+              <div className="mt-4">
+                <h1 className="text-3xl font-semibold tracking-tight text-slate-100 lg:text-4xl">
+                  is it healthy?
+                </h1>
               </div>
-              <h1 className="text-3xl font-semibold tracking-tight text-slate-100 lg:text-4xl">
-                is it healthy?
-              </h1>
+              <p className="mt-3 max-w-2xl text-sm text-slate-400 lg:text-base">
+                Scan ingredient labels or pick additives manually to review safety notes,
+                banned regions, and source links.
+              </p>
             </div>
-            <p className="mt-3 max-w-2xl text-sm text-slate-400 lg:text-base">
-              Scan ingredient labels or pick additives manually to review safety notes,
-              banned regions, and source links.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3 text-xs font-medium text-slate-400">
-              <span className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1">
-                OCR + Manual input
-              </span>
-              <span className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1">
-                Clear, source-backed details
-              </span>
-              <span className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1">
-                Built for quick checks
-              </span>
+            {/* Right column — logo */}
+            <div className="hidden lg:flex items-center justify-center">
+              <img
+                src="/logo-round.png"
+                alt="Is It Healthy logo"
+                className="h-32 w-32 rounded-full shadow-xl shadow-purple-900/50"
+              />
             </div>
           </div>
         </div>
+
 
         {/* Search Bar */}
         <div className="rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-4 shadow-xl shadow-purple-900/30 backdrop-blur lg:p-6">
@@ -304,11 +301,10 @@ const FoodInfo = () => {
                   />
                 </div>
                 <button
-                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70 ${
-                    ocrProgress > 0
-                      ? "pointer-events-none bg-slate-700"
-                      : "bg-gradient-to-r from-purple-600 to-fuchsia-500"
-                  }`}
+                  className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/70 hover:brightness-110 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70 ${ocrProgress > 0
+                    ? "pointer-events-none bg-slate-700"
+                    : "bg-gradient-to-r from-purple-600 to-fuchsia-500"
+                    }`}
                   onClick={() => fileInputRef.current?.click()}
                   disabled={ocrProgress > 0}
                 >
@@ -358,119 +354,119 @@ const FoodInfo = () => {
             ocrNumericMatches.length > 0 ||
             ocrTextMatches.length > 0 ||
             ocrUnmatchedCodes.length > 0) && (
-            <div className="my-10 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-6 shadow-xl shadow-purple-900/30 backdrop-blur">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-slate-100">OCR Scan Results</h3>
-                <span className="text-xs font-medium text-purple-300">Camera / OCR</span>
-              </div>
-
-              {/* Error */}
-              {ocrError && (
-                <div className="text-red-300 text-sm mt-4">
-                  <strong>Error: </strong>{ocrError}
+              <div className="my-10 rounded-2xl border border-purple-900/40 bg-[#0f0f14] p-6 shadow-xl shadow-purple-900/30 backdrop-blur">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-slate-100">OCR Scan Results</h3>
+                  <span className="text-xs font-medium text-purple-300">Camera / OCR</span>
                 </div>
-              )}
 
-              {/* Progress */}
-              {ocrProgress > 0 && (
-                <div className="mt-4">
-                  <progress
-                    className="progress progress-secondary w-full"
-                    value={ocrProgress}
-                    max="1"
-                  />
-                  <p className="text-sm text-slate-400 mt-2">
-                    Processing: {(ocrProgress * 100).toFixed(0)}%
-                  </p>
-                </div>
-              )}
-
-              {/* Extracted Text */}
-              {ocrResult && (
-                <details className="mt-5 rounded-xl border border-purple-900/40 bg-black/40" open={false}>
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-slate-200">
-                    Extracted Text
-                    <span className="text-xs font-medium text-purple-300">Show</span>
-                  </summary>
-                  <div className="border-t border-purple-900/40 px-4 py-3 text-sm text-slate-200 whitespace-pre-line">
-                    {ocrResult}
-                  </div>
-                </details>
-              )}
-
-              {/* Suggestions */}
-              <div className="mt-6 grid gap-5 lg:grid-cols-2">
-                {ocrNumericMatches.length > 0 && (
-                  <div className="rounded-2xl border border-purple-900/40 bg-black/50 p-5 shadow-sm">
-                    <h4 className="text-sm font-semibold text-slate-100 mb-3">INS code-based suggestions</h4>
-                    <div className="flex flex-col gap-2">
-                      {ocrNumericMatches.map((m) => (
-                        <label
-                          key={`num-${m.matchedCode}-${m.scannedCode}`}
-                          className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/60 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
-                        >
-                          <input
-                            type="checkbox"
-                            className="checkbox checkbox-sm checkbox-secondary"
-                            checked={selectedData.some(
-                              (item) => item.value === m.matchedCode
-                            )}
-                            onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
-                          />
-                          <span className="text-sm text-slate-200">
-                            {m.matchedCode} — {m.name}
-                            <span className="ml-1 text-xs text-slate-500">
-                              (from {m.scannedCode})
-                            </span>
-                          </span>
-                        </label>
-                      ))}
-                    </div>
+                {/* Error */}
+                {ocrError && (
+                  <div className="text-red-300 text-sm mt-4">
+                    <strong>Error: </strong>{ocrError}
                   </div>
                 )}
 
-                {ocrTextMatches.length > 0 && (
-                  <div className="rounded-2xl border border-purple-900/40 bg-black/50 p-5 shadow-sm">
-                    <h4 className="text-sm font-semibold text-slate-100 mb-3">Text-based suggestions</h4>
-                    <div className="flex flex-col gap-2">
-                      {ocrTextMatches.map((m) => (
-                        <label
-                          key={`txt-${m.matchedCode}`}
-                          className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/60 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
-                        >
-                          <input
-                            type="checkbox"
-                            className="checkbox checkbox-sm checkbox-secondary"
-                            checked={selectedData.some(
-                              (item) => item.value === m.matchedCode
-                            )}
-                            onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
-                          />
-                          <span className="text-sm text-slate-200">
-                            {m.matchedCode} — {m.name}
-                            <span className="ml-1 text-xs text-slate-500">
-                              (
-                              {`${(m.score * 100).toFixed(0)}% match`}
-                              {m.overlapTokens && m.overlapTokens.length > 0 && (
-                                <>, matched words: {m.overlapTokens.join(", ")}·</>
+                {/* Progress */}
+                {ocrProgress > 0 && (
+                  <div className="mt-4">
+                    <progress
+                      className="progress progress-secondary w-full"
+                      value={ocrProgress}
+                      max="1"
+                    />
+                    <p className="text-sm text-slate-400 mt-2">
+                      Processing: {(ocrProgress * 100).toFixed(0)}%
+                    </p>
+                  </div>
+                )}
+
+                {/* Extracted Text */}
+                {ocrResult && (
+                  <details className="mt-5 rounded-xl border border-purple-900/40 bg-black/40" open={false}>
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-slate-200">
+                      Extracted Text
+                      <span className="text-xs font-medium text-purple-300">Show</span>
+                    </summary>
+                    <div className="border-t border-purple-900/40 px-4 py-3 text-sm text-slate-200 whitespace-pre-line">
+                      {ocrResult}
+                    </div>
+                  </details>
+                )}
+
+                {/* Suggestions */}
+                <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                  {ocrNumericMatches.length > 0 && (
+                    <div className="rounded-2xl border border-purple-900/40 bg-black/50 p-5 shadow-sm">
+                      <h4 className="text-sm font-semibold text-slate-100 mb-3">INS code-based suggestions</h4>
+                      <div className="flex flex-col gap-2">
+                        {ocrNumericMatches.map((m) => (
+                          <label
+                            key={`num-${m.matchedCode}-${m.scannedCode}`}
+                            className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/60 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
+                          >
+                            <input
+                              type="checkbox"
+                              className="checkbox checkbox-sm checkbox-secondary"
+                              checked={selectedData.some(
+                                (item) => item.value === m.matchedCode
                               )}
-                              )
+                              onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
+                            />
+                            <span className="text-sm text-slate-200">
+                              {m.matchedCode} — {m.name}
+                              <span className="ml-1 text-xs text-slate-500">
+                                (from {m.scannedCode})
+                              </span>
                             </span>
-                          </span>
-                        </label>
-                      ))}
+                          </label>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {ocrTextMatches.length > 0 && (
+                    <div className="rounded-2xl border border-purple-900/40 bg-black/50 p-5 shadow-sm">
+                      <h4 className="text-sm font-semibold text-slate-100 mb-3">Text-based suggestions</h4>
+                      <div className="flex flex-col gap-2">
+                        {ocrTextMatches.map((m) => (
+                          <label
+                            key={`txt-${m.matchedCode}`}
+                            className="flex items-center gap-3 rounded-lg border border-purple-900/40 bg-black/60 px-3 py-2 shadow-sm transition hover:border-purple-700/60"
+                          >
+                            <input
+                              type="checkbox"
+                              className="checkbox checkbox-sm checkbox-secondary"
+                              checked={selectedData.some(
+                                (item) => item.value === m.matchedCode
+                              )}
+                              onChange={() => toggleCodeInSelected(m.matchedCode, m.name)}
+                            />
+                            <span className="text-sm text-slate-200">
+                              {m.matchedCode} — {m.name}
+                              <span className="ml-1 text-xs text-slate-500">
+                                (
+                                {`${(m.score * 100).toFixed(0)}% match`}
+                                {m.overlapTokens && m.overlapTokens.length > 0 && (
+                                  <>, matched words: {m.overlapTokens.join(", ")}·</>
+                                )}
+                                )
+                              </span>
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {ocrUnmatchedCodes.length > 0 && (
+                  <p className="mt-4 text-xs text-slate-500">
+                    Unmatched numeric codes: {ocrUnmatchedCodes.join(", ")}
+                  </p>
                 )}
               </div>
-
-              {ocrUnmatchedCodes.length > 0 && (
-                <p className="mt-4 text-xs text-slate-500">
-                  Unmatched numeric codes: {ocrUnmatchedCodes.join(", ")}
-                </p>
-              )}
-            </div>
-          )}
+            )}
 
         </>
 
