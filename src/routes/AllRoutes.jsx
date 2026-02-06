@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { Home, Landing, Help, HowItWorks, License, Legal, PageNotFound } from "../pages"
+import { Home, Landing, PageNotFound } from "../pages"
 
 const AllRoutes = () => {
   return (
